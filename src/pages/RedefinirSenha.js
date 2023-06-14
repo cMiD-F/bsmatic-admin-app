@@ -1,7 +1,7 @@
 import React from "react";
 import CustomInput from "../components/CustomInput";
 
-const EsqueceuSenha = () => {
+const RedefinirSenha = () => {
   return (
     <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
       <br />
@@ -10,19 +10,24 @@ const EsqueceuSenha = () => {
       <br />
       <br />
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
-        <h3 className="text-center">Esqueceu sua senha?</h3>
+        <h3 className="text-center">Redefinir senha</h3>
         <p className="text-center">
-        Digite seu e-mail de registro para redefinir a senha.
+        Por favor digite sua nova senha.
         </p>
         <form action="">
-          <CustomInput type="password" label="Endereço de email..." id="email" />
-          
+          <CustomInput type="text" label="Nova Senha" id="senha" />
+          <CustomInput
+            type="text"
+            label="Confirmar Senha"
+            id="confirmarsenha"
+          />
+
           <button
             className="border-0 px-3 py-2 text-white fw-bold w-100"
             style={{ background: "#ffd333" }}
             type="Enviar"
           >
-            Enviar link
+            Redefinir senha
           </button>
         </form>
       </div>
@@ -30,4 +35,5 @@ const EsqueceuSenha = () => {
   );
 };
 
-export default EsqueceuSenha;
+
+export default RedefinirSenha;
