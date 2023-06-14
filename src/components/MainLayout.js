@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
   MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  MenuUnfoldOutlined
 } from "@ant-design/icons";
+import { AiOutlineDashboard, AiOutlineShoppingCart, AiOutlineUser} from "react-icons/ai";
+import {BiBookAlt, BiCategoryAlt, BiCar} from "react-icons/bi"
+import { TbBrandAppgallery } from "react-icons/tb";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
@@ -15,7 +15,7 @@ const MainLayout = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -23,22 +23,70 @@ const MainLayout = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={[""]}
+          onClick={({ key }) => {
+            if (key == "signou") {
+            } else {
+              navigate(key);
+            }
+          }}
           items={[
             {
-              key: "1",
-              icon: <UserOutlined />,
-              label: "nav 1",
+              key: "",
+              icon: <AiOutlineDashboard className="fs-4"/>,
+              label: "Dashboard",
             },
             {
-              key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "nav 2",
+              key: "clientes",
+              icon: <AiOutlineUser className="fs-4"/>,
+              label: "Clientes",
             },
             {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: "nav 3",
+              key: "Catalogo",
+              icon: <BiBookAlt className="fs-4"/>,
+              label: "Catalogo",
+              children: [
+                {
+                  key: "produto",
+                  icon: <AiOutlineShoppingCart className="fs-4"/>,
+                  label: "Adiciona Produto",
+                },
+                {
+                  key: "lista-produto",
+                  icon: <AiOutlineShoppingCart className="fs-4"/>,
+                  label: "Lista de Produto",
+                },
+                {
+                  key: "marca",
+                  icon: <TbBrandAppgallery className="fs-4"/>,
+                  label: "Marca",
+                },
+                {
+                  key: "lista-marca",
+                  icon: <TbBrandAppgallery className="fs-4"/>,
+                  label: "Marca",
+                },
+                {
+                  key: "categoria",
+                  icon: <BiCategoryAlt className="fs-4"/>,
+                  label: "Categoria",
+                },
+                {
+                  key: "lista-categoria",
+                  icon: <BiCategoryAlt className="fs-4" />,
+                  label: "Lista de categoria",
+                },
+                {
+                  key: "aplicacao",
+                  icon: <BiCar className="fs-4" />,
+                  label: "Aplicação",
+                },
+                {
+                  key: "lista-aplicacao",
+                  icon: <BiCar className="fs-4" />,
+                  label: "Lista de aplicação",
+                },
+              ],
             },
           ]}
         />
