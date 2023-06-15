@@ -75,7 +75,7 @@ const MainLayout = () => {
                 {
                   key: "lista-marca",
                   icon: <TbBrandAppgallery className="fs-4" />,
-                  label: "Marca",
+                  label: "Lista de marcas",
                 },
                 {
                   key: "categoria",
@@ -105,7 +105,7 @@ const MainLayout = () => {
               label: "Pedidos",
             },
             {
-              key: "blog",
+              key: "blogs",
               icon: <FaBloggerB className="fs-4" />,
               label: "Blogs",
               children: [
