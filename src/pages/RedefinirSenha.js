@@ -10,7 +10,7 @@ const RedefinirSenha = () => {
       <br />
       <br />
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
-        <h3 className="text-center">Redefinir senha</h3>
+        <h3 className="text-center title">Redefinir senha</h3>
         <p className="text-center">
         Por favor digite sua nova senha.
         </p>

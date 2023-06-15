@@ -14,6 +14,7 @@ import { IoIosNotifications } from "react-icons/io";
 import { AiOutlineMail } from "react-icons/ai";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
@@ -162,7 +163,7 @@ const MainLayout = () => {
               </span>
             </div>
 
-            <div className="d-flex gap-3 align-items-center">
+            <div className="d-flex gap-3 align-items-center dropdown">
               <div>
                 <img
                   width={32}
@@ -171,9 +172,34 @@ const MainLayout = () => {
                   alt=""
                 />
               </div>
-              <div>
+              <div
+                role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 <h5 className="mb-0">BSMatic</h5>
                 <p className="mb-0">bsmatic@gmail.com</p>
+              </div>
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                  <Link
+                    className="dropdown-item py-1 mb-1"
+                    style={{ height: "auto", lineHeight: "20px" }}
+                    to="/"
+                  >
+                    Ver Perfil
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item py-1 mb-1"
+                    style={{ height: "auto", lineHeight: "20px" }}
+                    to="/"
+                  >
+                    Encerrar
+                  </Link>
+                </li>
               </div>
             </div>
           </div>

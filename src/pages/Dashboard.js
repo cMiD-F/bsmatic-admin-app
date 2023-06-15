@@ -2,6 +2,8 @@ import React from "react";
 import { BsArrowDownRight } from "react-icons/bs";
 import { Column } from "@ant-design/plots";
 import { Table } from "antd";
+import {BiEdit} from "react-icons/bi"
+import {AiFillDelete} from "react-icons/ai"
 const columns = [
   {
     title: "SNo",
@@ -112,53 +114,52 @@ const Dashboard = () => {
   };
   return (
     <div>
-      <h3 className="mb-4">Dashboard</h3>
+      <h3 className="mb-4 title">Dashboard</h3>
       <div className="d-flex justify-content-between align-items-center gap-3">
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roundned-3">
           <div>
-            <p>Total</p> <h4>R$1100</h4>
+            <p className="desc">Total</p> <h4 className="mb-0 sub-title">R$1100</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
-            <h6 className="green">
-              <BsArrowDownRight />
-              32%
+            <h6>
+              <BsArrowDownRight /> 32%
             </h6>
-            <p className="mb-0">Comparado a junho 2023</p>
+            <p className="mb-0 desc">Comparado a junho 2023</p>
           </div>
         </div>
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roundned-3">
           <div>
-            <p>Total</p> <h4>R$1100</h4>
+            <p className="desc">Total</p> <h4 className="mb-0 sub-title">R$1100</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6 className="red">
               <BsArrowDownRight />
               32%
             </h6>
-            <p className="mb-0">Comparado a junho 2023</p>
+            <p className="mb-0 desc">Comparado a junho 2023</p>
           </div>
         </div>
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roundned-3">
           <div>
-            <p>Total</p> <h4>R$1100</h4>
+            <p className="desc">Total</p> <h4 className="mb-0 sub-title">R$1100</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6 className="green">
               <BsArrowDownRight />
               32%
             </h6>
-            <p className="mb-0">Comparado a junho 2023</p>
+            <p className="mb-0 desc">Comparado a junho 2023</p>
           </div>
         </div>
       </div>
       <div className="mt-4">
-        <h3 className="mb-4">Estatísticas de renda</h3>
+        <h3 className="mb-4 title">Estatísticas de renda</h3>
         <div>
           <Column {...config} />
         </div>
       </div>
       <div className="mt-4">
-        <h3 className="mb-4">Pedidos recentes</h3>
+        <h3 className="mb-4 title">Pedidos recentes</h3>
         <div>
           <Table columns={columns} dataSource={data1} />
         </div>

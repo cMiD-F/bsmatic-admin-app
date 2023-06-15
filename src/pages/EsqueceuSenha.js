@@ -10,7 +10,7 @@ const EsqueceuSenha = () => {
       <br />
       <br />
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
-        <h3 className="text-center">Esqueceu sua senha?</h3>
+        <h3 className="text-center title">Esqueceu sua senha?</h3>
         <p className="text-center">
         Digite seu e-mail de registro para redefinir a senha.
         </p>
