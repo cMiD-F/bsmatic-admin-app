@@ -1,11 +1,17 @@
 import React, { useState } from "react";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { Outlet } from "react-router-dom";
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined
-} from "@ant-design/icons";
-import { AiOutlineDashboard, AiOutlineShoppingCart, AiOutlineUser} from "react-icons/ai";
-import {BiBookAlt, BiCategoryAlt, BiCar} from "react-icons/bi"
+  AiOutlineDashboard,
+  AiOutlineShoppingCart,
+  AiOutlineUser,
+} from "react-icons/ai";
+import { BiBookAlt, BiCategoryAlt, BiCar } from "react-icons/bi";
+import { FaBloggerB, FaClipboardList } from "react-icons/fa";
 import { TbBrandAppgallery } from "react-icons/tb";
+import { ImBlog } from "react-icons/im";
+import { IoIosNotifications } from "react-icons/io";
+import { AiOutlineMail } from "react-icons/ai";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
@@ -19,7 +25,12 @@ const MainLayout = () => {
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+        <div className="logo">
+          <h2 className="text-white fs-5 text-center py-3 mb-0">
+            <span className="sm-logo">BSM</span>
+            <span className="lg-logo">BSMatic</span>
+          </h2>
+        </div>
         <Menu
           theme="dark"
           mode="inline"
@@ -33,42 +44,42 @@ const MainLayout = () => {
           items={[
             {
               key: "",
-              icon: <AiOutlineDashboard className="fs-4"/>,
+              icon: <AiOutlineDashboard className="fs-4" />,
               label: "Dashboard",
             },
             {
               key: "clientes",
-              icon: <AiOutlineUser className="fs-4"/>,
+              icon: <AiOutlineUser className="fs-4" />,
               label: "Clientes",
             },
             {
               key: "Catalogo",
-              icon: <BiBookAlt className="fs-4"/>,
+              icon: <BiBookAlt className="fs-4" />,
               label: "Catalogo",
               children: [
                 {
                   key: "produto",
-                  icon: <AiOutlineShoppingCart className="fs-4"/>,
+                  icon: <AiOutlineShoppingCart className="fs-4" />,
                   label: "Adiciona Produto",
                 },
                 {
                   key: "lista-produto",
-                  icon: <AiOutlineShoppingCart className="fs-4"/>,
+                  icon: <AiOutlineShoppingCart className="fs-4" />,
                   label: "Lista de Produto",
                 },
                 {
                   key: "marca",
-                  icon: <TbBrandAppgallery className="fs-4"/>,
+                  icon: <TbBrandAppgallery className="fs-4" />,
                   label: "Marca",
                 },
                 {
                   key: "lista-marca",
-                  icon: <TbBrandAppgallery className="fs-4"/>,
+                  icon: <TbBrandAppgallery className="fs-4" />,
                   label: "Marca",
                 },
                 {
                   key: "categoria",
-                  icon: <BiCategoryAlt className="fs-4"/>,
+                  icon: <BiCategoryAlt className="fs-4" />,
                   label: "Categoria",
                 },
                 {
@@ -88,11 +99,49 @@ const MainLayout = () => {
                 },
               ],
             },
+            {
+              key: "pedidos",
+              icon: <FaClipboardList className="fs-4" />,
+              label: "Pedidos",
+            },
+            {
+              key: "blog",
+              icon: <FaBloggerB className="fs-4" />,
+              label: "Blogs",
+              children: [
+                {
+                  key: "blog",
+                  icon: <ImBlog className="fs-4" />,
+                  label: "Adicionar Blog",
+                },
+                {
+                  key: "lista-blog",
+                  icon: <FaBloggerB className="fs-4" />,
+                  label: "Lista de Blog",
+                },
+                {
+                  key: "blog-categoria",
+                  icon: <ImBlog className="fs-4" />,
+                  label: "Add Blog Categoria",
+                },
+                {
+                  key: "lista-blog-categoria",
+                  icon: <FaBloggerB className="fs-4" />,
+                  label: "Lista de categoria de Blog",
+                },
+              ],
+            },
+            {
+              key: "perguntas",
+              icon: <AiOutlineMail className="fs-4" />,
+              label: "Perguntas",
+            },
           ]}
         />
       </Sider>
       <Layout className="site-layout">
         <Header
+          className="d-flex justify-content-between ps-2 pe-5"
           style={{
             padding: 0,
             background: colorBgContainer,
@@ -105,6 +154,29 @@ const MainLayout = () => {
               onClick: () => setCollapsed(!collapsed),
             }
           )}
+          <div className="d-flex gap-3 align-itens-center">
+            <div className="position-relative">
+              <IoIosNotifications className="fs-4" />
+              <span className="badge bg-warning rounded-circle p-1 position-absolute">
+                3
+              </span>
+            </div>
+
+            <div className="d-flex gap-3 align-items-center">
+              <div>
+                <img
+                  width={32}
+                  height={32}
+                  src="https://res.cloudinary.com/bsmatic/image/upload/v1686783892/favicon_ddkb5u.jpg"
+                  alt=""
+                />
+              </div>
+              <div>
+                <h5 className="mb-0">BSMatic</h5>
+                <p className="mb-0">bsmatic@gmail.com</p>
+              </div>
+            </div>
+          </div>
         </Header>
         <Content
           style={{
@@ -114,7 +186,7 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         >
-          Content
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
