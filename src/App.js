@@ -15,6 +15,7 @@ import CategoriaLista from "./pages/CategoriaLista";
 import MarcaLista from "./pages/MarcasLista";
 import ProdutosLista from "./pages/ProdutosLista";
 import AddBlog from "./pages/AddBlog";
+import AddBlogCat from "./pages/AddBlogCat";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="lista-blog" element={<BlogLista />} />
           <Route path="blog" element={<AddBlog />} />
           <Route path="lista-blog-categoria" element={<BlogCatLista />} />
+          <Route path="blog-categoria" element={<AddBlogCat />} />
           <Route path="pedidos" element={<Pedidos />} />
           <Route path="clientes" element={<Clientes />} />
           <Route path="lista-aplicacao" element={<AplicacaoLista />} />

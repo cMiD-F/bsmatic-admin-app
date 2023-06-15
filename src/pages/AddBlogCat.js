@@ -12,7 +12,7 @@ const AddBlogCat = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            Adicionar Blog
+            Adicionar Categoria do Blog
           </button>
         </form>
       </div>
