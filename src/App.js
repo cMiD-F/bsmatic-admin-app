@@ -9,7 +9,7 @@ import Perguntas from "./pages/Perguntas";
 import BlogLista from "./pages/BlogLista";
 import BlogCatLista from "./pages/BlogCatLista";
 import Pedidos from "./pages/Pedidos";
-import Clientes from "./pages/Clientes";
+import Usuarios from "./pages/Usuarios";
 import AplicacaoLista from "./pages/AplicacaoLista";
 import CategoriaLista from "./pages/CategoriaLista";
 import MarcaLista from "./pages/MarcasLista";
@@ -37,7 +37,7 @@ function App() {
           <Route path="lista-blog-categoria" element={<BlogCatLista />} />
           <Route path="blog-categoria" element={<AddBlogCat />} />
           <Route path="pedidos" element={<Pedidos />} />
-          <Route path="clientes" element={<Clientes />} />
+          <Route path="usuarios" element={<Usuarios />} />
           <Route path="aplicacao" element={<AddAplicacao />} />
           <Route path="lista-aplicacao" element={<AplicacaoLista />} />
           <Route path="lista-categoria" element={<CategoriaLista />} />

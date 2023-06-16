@@ -49,9 +49,9 @@ const MainLayout = () => {
               label: "Dashboard",
             },
             {
-              key: "clientes",
+              key: "usuarios",
               icon: <AiOutlineUser className="fs-4" />,
-              label: "Clientes",
+              label: "Usuários",
             },
             {
               key: "Catalogo",
