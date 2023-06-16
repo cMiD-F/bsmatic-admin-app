@@ -64,7 +64,7 @@ const MainLayout = () => {
                   label: "Adiciona Produto",
                 },
                 {
-                  key: "lista-produto",
+                  key: "produto-lista",
                   icon: <AiOutlineShoppingCart className="fs-4" />,
                   label: "Lista de Produto",
                 },

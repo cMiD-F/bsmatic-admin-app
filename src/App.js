@@ -43,8 +43,9 @@ function App() {
           <Route path="lista-categoria" element={<CategoriaLista />} />
           <Route path="marca" element={<AddMarca />} />
           <Route path="lista-marca" element={<MarcaLista />} />
+          <Route path="marca/:id" element={<AddMarca />} />
           <Route path="produto" element={<AddProduto />} />
-          <Route path="lista-produto" element={<ProdutosLista />} />
+          <Route path="produto-lista" element={<ProdutosLista />} />
         </Route>
       </Routes>
     </Router>

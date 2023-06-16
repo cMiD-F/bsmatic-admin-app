@@ -1,36 +1,23 @@
-import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import produtoService from "./produtoService";
+import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import produtoService from "./produtoService"
 
-export const getProdutos = createAsyncThunk(
-  "produtos/get-produtos",
+export const getProduto = createAsyncThunk(
+  "produto/get-produtos",
   async (thunkAPI) => {
     try {
-      return await produtoService.getProdutos();
+      return await produtoService.getProduto();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const createProdutos = createAsyncThunk(
-    "produtos/create-produtos",
-    async (produtoData, thunkAPI) => {
-        try {
-            return await produtoService.createProduto(produtoData);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
-    }
-);
-
-export const resetState = createAction("Reset_all");
-
 const initialState = {
   produtos: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
-  message: "",
+  message:"",
 };
 
 export const produtoSlice = createSlice({
@@ -39,37 +26,21 @@ export const produtoSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getProdutos.pending, (state) => {
+      .addCase(getProduto.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getProdutos.fulfilled, (state, action) => {
+      .addCase(getProduto.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.produtos = action.payload;
       })
-      .addCase(getProdutos.rejected, (state, action) => {
+      .addCase(getProduto.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-      })
-      .addCase(createProdutos.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(createProdutos.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isError = false;
-        state.isSuccess = true;
-        state.createProduto = action.payload;
-      })
-      .addCase(createProdutos.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.isSuccess = false;
-        state.message = action.error;
-      })
-      .addCase(resetState, () => initialState);
+      });
   },
 });
 export default produtoSlice.reducer;
