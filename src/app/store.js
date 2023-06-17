@@ -8,6 +8,7 @@ import bCategoriaReducer from "../features/bcategoria/bcategoriaSlice";
 import blogReducer from "../features/blogs/blogSlice";
 import aplicacaoReducer from "../features/aplicacao/aplicacaoSlice";
 import perguntaReducer from "../features/perguntas/perguntasSlice";
+import uploadReducer from "../features/upload/uploadSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     blogs: blogReducer,
     aplicacao: aplicacaoReducer,
     pergunta: perguntaReducer,
+    upload: uploadReducer,
   },
 });
 

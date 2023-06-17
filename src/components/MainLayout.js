@@ -12,6 +12,8 @@ import { TbBrandAppgallery } from "react-icons/tb";
 import { ImBlog } from "react-icons/im";
 import { IoIosNotifications } from "react-icons/io";
 import { AiOutlineMail } from "react-icons/ai";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -212,6 +214,17 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         >
+          <ToastContainer
+          position="top-right"
+          autoClose={250}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          theme="light"
+          />
           <Outlet />
         </Content>
       </Layout>
