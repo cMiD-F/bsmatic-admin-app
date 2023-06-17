@@ -3,8 +3,8 @@ import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import { getMarcas } from "../features/marca/marcaSlice";
 import { Link } from "react-router-dom";
+import { getMarcas } from "../features/marca/marcaSlice";
 
 const columns = [
   {
@@ -14,6 +14,7 @@ const columns = [
   {
     title: "Marca",
     dataIndex: "title",
+    sorter: (a,b) => a.title.length - b.title.length,
   },
   {
     title: "Ação",

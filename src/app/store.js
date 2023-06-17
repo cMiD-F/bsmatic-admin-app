@@ -3,6 +3,11 @@ import authReducer from "../features/auth/authSlice";
 import usuariosReducer from "../features/usuario/usuarioSlice";
 import produtoReducer from "../features/produto/produtoSlice";
 import marcaReducer from "../features/marca/marcaSlice";
+import pCategoriaReducer from "../features/pcategoria/pcategoriaSlice";
+import bCategoriaReducer from "../features/bcategoria/bcategoriaSlice";
+import blogReducer from "../features/blogs/blogSlice";
+import aplicacaoReducer from "../features/aplicacao/aplicacaoSlice";
+import perguntaReducer from "../features/perguntas/perguntasSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +15,11 @@ export const store = configureStore({
     usuarios: usuariosReducer,
     produto : produtoReducer,
     marca: marcaReducer,
+    pCategoria: pCategoriaReducer,
+    bCategoria: bCategoriaReducer,
+    blogs: blogReducer,
+    aplicacao: aplicacaoReducer,
+    pergunta: perguntaReducer,
   },
 });
 
