@@ -13,6 +13,17 @@ export const getAplicacao = createAsyncThunk(
   }
 );
 
+export const createAplicacao = createAsyncThunk(
+  "aplicacao/create-aplicacao",
+  async (aplicacaoData, thunkAPI) => {
+    try {
+      return await aplicacaoService.createAplicacao(aplicacaoData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const resetState = createAction("Reset_all");
 
 const initialState = {
@@ -43,7 +54,23 @@ export const aplicacaoSlice = createSlice({
           state.isError = true;
           state.isSuccess = false;
           state.message = action.error;
-        });
+        })
+        .addCase(createAplicacao.pending, (state) => {
+          state.isLoading = true;
+        })
+        .addCase(createAplicacao.fulfilled, (state, action) => {
+          state.isLoading = false;
+          state.isError = false;
+          state.isSuccess = true;
+          state.createdAplicacao = action.payload;
+        })
+        .addCase(createAplicacao.rejected, (state, action) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.message = action.error;
+        })
+        .addCase(resetState, () => initialState);
   },
 });
 export default aplicacaoSlice.reducer;
