@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
-import { useDispatch, useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { getBlogs, resetState } from "../features/blogs/blogSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteACupom, getAllCupom } from "../features/cupom/cupomSlice";
 import CustomModal from "../components/CustomModal";
+
 
 const columns = [
   {
@@ -13,12 +14,19 @@ const columns = [
     dataIndex: "key",
   },
   {
-    title: "Titulo",
-    dataIndex: "title",
+    title: "Nome",
+    dataIndex: "nome",
+    sorter: (a, b) => a.nome.length - b.nome.length,
   },
   {
-    title: "Categoria",
-    dataIndex: "categoria",
+    title: "Desconto",
+    dataIndex: "desconto",
+    sorter: (a, b) => a.desconto - b.desconto,
+  },
+  {
+    title: "Expiração",
+    dataIndex: "expiracao",
+    sorter: (a, b) => a.expiracao.length - b.expiracao.length,
   },
   {
     title: "Ação",
@@ -26,12 +34,12 @@ const columns = [
   },
 ];
 
-const Bloglist = () => {
+const Couponlist = () => {
   const [open, setOpen] = useState(false);
-  const [blogId, setblogId] = useState("");
+  const [cupomId, setcupomId] = useState("");
   const showModal = (e) => {
     setOpen(true);
-    setblogId(e);
+    setcupomId(e);
   };
 
   const hideModal = () => {
@@ -39,28 +47,27 @@ const Bloglist = () => {
   };
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(resetState());
-    dispatch(getBlogs());
+    dispatch(getAllCupom());
   }, []);
-  const getBlogState = useSelector((state) => state.blogs.blogs);
+  const cupomState = useSelector((state) => state.cupom.cupons);
   const data1 = [];
-  for (let i = 0; i < getBlogState.length; i++) {
+  for (let i = 0; i < cupomState.length; i++) {
     data1.push({
       key: i + 1,
-      title: getBlogState[i].title,
-      categoria: getBlogState[i].categoria,
-
+      nome: cupomState[i].nome,
+      desconto: cupomState[i].desconto,
+      expiracao: new Date(cupomState[i].expiracao).toLocaleString(),
       acao: (
         <>
           <Link
-            to={`/admin/blog/${getBlogState[i].id}`}
+            to={`/admin/cupom/${cupomState[i]._id}`}
             className=" fs-3 text-danger"
           >
             <BiEdit />
           </Link>
           <button
             className="ms-3 fs-3 text-danger bg-transparent border-0"
-            onClick={() => showModal(getBlogState[i]._id)}
+            onClick={() => showModal(cupomState[i]._id)}
           >
             <AiFillDelete />
           </button>
@@ -68,17 +75,17 @@ const Bloglist = () => {
       ),
     });
   }
-  const deleteBlog = (e) => {
-    dispatch(deleteBlog(e));
+  const deleteCoupon = (e) => {
+    dispatch(deleteACupom(e));
 
     setOpen(false);
     setTimeout(() => {
-      dispatch(getBlogs());
+      dispatch(getAllCupom());
     }, 100);
   };
   return (
     <div>
-      <h3 className="mb-4 title">Lista de blogs</h3>
+      <h3 className="mb-4 title">Cupons</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -86,12 +93,12 @@ const Bloglist = () => {
         hideModal={hideModal}
         open={open}
         performAction={() => {
-          deleteBlog(blogId);
+          deleteCoupon(cupomId);
         }}
-        title="Tem certeza que deseja excluir este blog ?"
+        title="Are you sure you want to delete this Coupon?"
       />
     </div>
   );
 };
 
-export default Bloglist;
+export default Couponlist;

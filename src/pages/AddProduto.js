@@ -85,7 +85,7 @@ const AddProduto = () => {
       dispatch(createProduto(values));
       formik.resetForm();
       setTimeout(() => {
-        navigate("/admin/produto-lista");
+        dispatch(resetState());
       }, 3000);
     },
   });

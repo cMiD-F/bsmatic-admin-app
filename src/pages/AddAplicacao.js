@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { createAplicacao} from "../features/aplicacao/aplicacaoSlice";
+import { createAplicacao, resetState} from "../features/aplicacao/aplicacaoSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("O nome da aplicação é obrigatório"),
@@ -38,7 +38,7 @@ const AddAplicacao = () => {
       dispatch(createAplicacao(values));
       formik.resetForm();
       setTimeout(() => {
-        navigate("/admin/lista-aplicacao");
+        dispatch(resetState());
       }, 3000);
     },
   });

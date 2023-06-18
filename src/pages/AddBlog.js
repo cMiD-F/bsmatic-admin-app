@@ -61,7 +61,7 @@ const Addblog = () => {
     }
     if (isSuccess && updatedBlog) {
       toast.success("Blog atualizado com sucesso!");
-      navigate("/admin/blog-list");
+      navigate("/admin/blog-lista");
     }
     if (isError) {
       toast.error("Algo deu errado!");

@@ -20,6 +20,8 @@ import AddAplicacao from "./pages/AddAplicacao";
 import AddCategoria from "./pages/AddCategoria";
 import AddMarca from "./pages/AddMarca";
 import AddProduto from "./pages/AddProduto";
+import CupomLista from "./pages/CupomLista";
+import AddCupom from "./pages/AddCupom";
 
 function App() {
   return (
@@ -33,6 +35,9 @@ function App() {
           <Route path="perguntas" element={<Perguntas />} />
           <Route path="lista-blog" element={<BlogLista />} />
           <Route path="blog" element={<AddBlog />} />
+          <Route path="lista-cupom" element={<CupomLista />} />
+          <Route path="cupom" element={<AddCupom />} />
+          <Route path="cupom/:id" element={<AddCupom />} />
           <Route path="categoria" element={<AddCategoria />} />
           <Route path="lista-blog-categoria" element={<BlogCatLista />} />
           <Route path="blog-categoria" element={<AddBlogCat />} />
@@ -41,6 +46,8 @@ function App() {
           <Route path="aplicacao" element={<AddAplicacao />} />
           <Route path="lista-aplicacao" element={<AplicacaoLista />} />
           <Route path="lista-categoria" element={<CategoriaLista />} />
+
+          
           <Route path="marca" element={<AddMarca />} />
           <Route path="lista-marca" element={<MarcaLista />} />
           <Route path="marca/:id" element={<AddMarca />} />

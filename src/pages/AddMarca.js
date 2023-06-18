@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { createMarca } from "../features/marca/marcaSlice";
+import { createMarca, resetState } from "../features/marca/marcaSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Digitar o nome da marca é obrigatório"),
@@ -34,7 +34,7 @@ const AddMarca = () => {
       dispatch(createMarca(values));
       formik.resetForm();
       setTimeout(() => {
-        navigate("/admin/lista-marca");
+        dispatch(resetState());
       }, 3000);
     },
   });
