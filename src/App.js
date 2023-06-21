@@ -22,6 +22,8 @@ import AddMarca from "./pages/AddMarca";
 import AddProduto from "./pages/AddProduto";
 import CupomLista from "./pages/CupomLista";
 import AddCupom from "./pages/AddCupom";
+import ViewPerguntas from "./pages/ViewPerguntas";
+import ViewPedidos from "./pages/ViewPedidos";
 
 function App() {
   return (
@@ -33,26 +35,31 @@ function App() {
         <Route path="/admin" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="perguntas" element={<Perguntas />} />
+          <Route path="perguntas/:id" element={<ViewPerguntas />} />
           <Route path="lista-blog" element={<BlogLista />} />
           <Route path="blog" element={<AddBlog />} />
+          <Route path="blog/:id" element={<AddBlog />} />
           <Route path="lista-cupom" element={<CupomLista />} />
           <Route path="cupom" element={<AddCupom />} />
           <Route path="cupom/:id" element={<AddCupom />} />
           <Route path="categoria" element={<AddCategoria />} />
+          <Route path="categoria/:id" element={<AddCategoria  />} />
           <Route path="lista-blog-categoria" element={<BlogCatLista />} />
           <Route path="blog-categoria" element={<AddBlogCat />} />
+          <Route path="blog-categoria/:id" element={<AddBlogCat />} />
           <Route path="pedidos" element={<Pedidos />} />
+          <Route path="pedidos/:id" element={<ViewPedidos />} />
           <Route path="usuarios" element={<Usuarios />} />
           <Route path="aplicacao" element={<AddAplicacao />} />
+          <Route path="aplicacao/:id" element={<AddAplicacao />} />
           <Route path="lista-aplicacao" element={<AplicacaoLista />} />
-          <Route path="lista-categoria" element={<CategoriaLista />} />
-
-          
+          <Route path="lista-categoria" element={<CategoriaLista />} />          
           <Route path="marca" element={<AddMarca />} />
           <Route path="lista-marca" element={<MarcaLista />} />
           <Route path="marca/:id" element={<AddMarca />} />
-          <Route path="produto" element={<AddProduto />} />
           <Route path="produto-lista" element={<ProdutosLista />} />
+          <Route path="produto" element={<AddProduto />} />
+          
         </Route>
       </Routes>
     </Router>

@@ -25,9 +25,20 @@ const getPedidos = async () => {
   return response.data;
 };
 
+const getPedido = async (id) => {
+  const response = await axios.post(
+    `${base_url}user/obtempedidoporusuario/${id}`,
+    "",
+    config
+  );
+
+  return response.data;
+};
+
 const authService = {
   login,
   getPedidos,
+  getPedido,
 };
 
 export default authService;

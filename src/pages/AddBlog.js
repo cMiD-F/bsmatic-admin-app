@@ -18,9 +18,9 @@ import {
 import { getCategorias } from "../features/bcategoria/bcategoriaSlice";
 
 let schema = yup.object().shape({
-  title: yup.string().required("Title is Required"),
-  descricao: yup.string().required("Description is Required"),
-  categoria: yup.string().required("Category is Required"),
+  title: yup.string().required("Título é obrigatório"),
+  descricao: yup.string().required("A descrição é obrigatória"),
+  categoria: yup.string().required("A categoria é obrigatória"),
 });
 const Addblog = () => {
   const dispatch = useDispatch();
@@ -61,7 +61,7 @@ const Addblog = () => {
     }
     if (isSuccess && updatedBlog) {
       toast.success("Blog atualizado com sucesso!");
-      navigate("/admin/blog-lista");
+      navigate("/admin/lista-blog");
     }
     if (isError) {
       toast.error("Algo deu errado!");

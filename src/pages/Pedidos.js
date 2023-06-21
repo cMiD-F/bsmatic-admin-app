@@ -46,7 +46,7 @@ const Pedidos = () => {
       key: i + 1, // Use o identificador único do pedido como chave
       nome: pedidoState[i].orderby.primeiroNome,
       produto: (
-        <Link to={`/admin/pedido/${pedidoState[i].orderby._id}`}>
+        <Link to={`/admin/pedidos/${pedidoState[i].orderby._id}`}>
           Ver pedidos
         </Link>
       ),

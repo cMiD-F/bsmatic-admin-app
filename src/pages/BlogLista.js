@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { getBlogs, resetState } from "../features/blogs/blogSlice";
+import { getBlogs, resetState, deleteABlog } from "../features/blogs/blogSlice";
 import CustomModal from "../components/CustomModal";
 
 const columns = [
@@ -69,7 +69,7 @@ const Bloglist = () => {
     });
   }
   const deleteBlog = (e) => {
-    dispatch(deleteBlog(e));
+    dispatch(deleteABlog(e));
 
     setOpen(false);
     setTimeout(() => {

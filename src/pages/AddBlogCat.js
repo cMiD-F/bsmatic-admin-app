@@ -26,7 +26,7 @@ const Addblogcat = () => {
     isLoading,
     createBlogCategoria,
     blogCatName,
-    updatedBlogCategoria,
+    updatedBlogCategory,
   } = newBlogCategoria;
   useEffect(() => {
     if (getBlogCatId !== undefined) {
@@ -39,9 +39,9 @@ const Addblogcat = () => {
     if (isSuccess && createBlogCategoria) {
       toast.success("Categoria do blog adicionada com sucesso!");
     }
-    if (isSuccess && updatedBlogCategoria) {
+    if (isSuccess && updatedBlogCategory) {
       toast.success("Categoria do blog atualizada com sucesso!");
-      navigate("/admin/blog-category-list");
+      navigate("/admin/lista-blog-categoria");
     }
     if (isError) {
       toast.error("Algo deu errado!");
@@ -80,7 +80,7 @@ const Addblogcat = () => {
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
-            label="Enter Blog Category"
+            label="Insira a categoria do blog"
             id="bCategoria"
           />
           <div className="error">
@@ -90,7 +90,7 @@ const Addblogcat = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            {getBlogCatId !== undefined ? "Edit" : "Add"} Blog Category
+            {getBlogCatId !== undefined ? "Edit" : "Add"} Blog Categoria
           </button>
         </form>
       </div>

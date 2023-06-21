@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { createAplicacao, resetState} from "../features/aplicacao/aplicacaoSlice";
+import { createAplicacao, getAplicacao, updateAplicacao, resetState} from "../features/aplicacao/aplicacaoSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("O nome da aplicação é obrigatório"),
@@ -13,48 +13,70 @@ let schema = yup.object().shape({
 
 const AddAplicacao = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const getAplicacaoId = location.pathname.split("/")[3];
   const navigate = useNavigate();
   const newCategoria = useSelector((state) => state.aplicacao);
   const {
     isSuccess,
     isError,
     isLoading,
-    createdAplicacao,    
+    createdAplicacao,
+    aplicacaoNome,
+    updatedAplicacao,
   } = newCategoria;
   useEffect(() => {
+    if (getAplicacaoId !== undefined) {
+      dispatch(getAplicacao(getAplicacaoId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [getAplicacaoId]);
+  useEffect(() => {
     if (isSuccess && createdAplicacao) {
-      toast.success("Categoria adicionada com sucesso!");
+      toast.success("Aplicação adicionada com sucesso!");
+    }
+    if (isSuccess && updatedAplicacao) {
+      toast.success("Aplicação atualizada com sucesso!");
+      navigate("/admin/lista-aplicacao");
     }
     if (isError) {
-      toast.error("Algo de errado aconteceu!");
+      toast.error("Algo deu errado!");
     }
   }, [isSuccess, isError, isLoading]);
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      title: "",
+      title: aplicacaoNome || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(createAplicacao(values));
-      formik.resetForm();
-      setTimeout(() => {
+      if (getAplicacaoId !== undefined) {
+        const data = { id: getAplicacaoId, aplicacaoData: values };
+        dispatch(updateAplicacao(data));
         dispatch(resetState());
-      }, 3000);
+      } else {
+        dispatch(createAplicacao(values));
+        formik.resetForm();
+        setTimeout(() => {
+          dispatch(resetState());
+        }, 300);
+      }
     },
   });
-
   return (
     <div>
-      <h3 className="mb-4 title">Adiciona Aplicação</h3>
+      <h3 className="mb-4  title">
+        {getAplicacaoId !== undefined ? "Edit" : "Adicionar"} Aplicação
+      </h3>
       <div>
-      <form action="" onSubmit={formik.handleSubmit}>
+        <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
-            name="title"
+            label="Digite aqui a aplicação"
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
-            label="Digite aqui a categoria"
             id="aplicacao"
           />
           <div className="error">
@@ -64,11 +86,11 @@ const AddAplicacao = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            Adicionar Aplicação
+            {getAplicacaoId !== undefined ? "Edit" : "Adicionar"} Aplicação
           </button>
         </form>
       </div>
-      </div>
+    </div>
   );
 };
 

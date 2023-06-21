@@ -60,6 +60,7 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   message: "",
+  createBlogCategoria: null,
 };
 export const pCategoriaSlice = createSlice({
   name: "bCategorias",
@@ -119,7 +120,7 @@ export const pCategoriaSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.updatedBlogCategoria = action.payload;
+        state.updatedBlogCategory = action.payload;
       })
       .addCase(updateABlogCat.rejected, (state, action) => {
         state.isLoading = false;

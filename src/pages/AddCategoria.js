@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { createCategoria, resetState } from "../features/pcategoria/pcategoriaSlice";
+import { createCategoria, getAProdutoCategoria, updateAProdutoCategoria ,resetState } from "../features/pcategoria/pcategoriaSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("O nome da categoria é obrigatório"),
@@ -13,49 +13,70 @@ let schema = yup.object().shape({
 
 const AddCategoria = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const getPCatId = location.pathname.split("/")[3];
   const navigate = useNavigate();
   const newCategoria = useSelector((state) => state.pCategoria);
   const {
     isSuccess,
     isError,
     isLoading,
-    createdCategoria,    
+    createdCategoria,
+    categoriaNome,
+    updatedCategoria,
   } = newCategoria;
+  useEffect(() => {
+    if (getPCatId !== undefined) {
+      dispatch(getAProdutoCategoria(getPCatId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [getPCatId]);
   useEffect(() => {
     if (isSuccess && createdCategoria) {
       toast.success("Categoria adicionada com sucesso!");
     }
+    if (isSuccess && updatedCategoria) {
+      toast.success("Categoria atualizada com sucesso!");
+      navigate("/admin/lista-categoria");
+    }
     if (isError) {
-      toast.error("Algo de errado aconteceu!");
+      toast.error("Algo deu errado!");
     }
   }, [isSuccess, isError, isLoading]);
-
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      title: "",
+      title: categoriaNome || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(createCategoria(values));
-      formik.resetForm();
-      setTimeout(() => {
+      if (getPCatId !== undefined) {
+        const data = { id: getPCatId, pCatData: values };
+        dispatch(updateAProdutoCategoria(data));
         dispatch(resetState());
-      }, 3000);
+      } else {
+        dispatch(createCategoria(values));
+        formik.resetForm();
+        setTimeout(() => {
+          dispatch(resetState());
+        }, 300);
+      }
     },
   });
-
   return (
     <div>
-      <h3 className="mb-4 title">Adiciona Categoria</h3>
+      <h3 className="mb-4  title">
+        {getPCatId !== undefined ? "Edit" : "Adicionar"} Categoria
+      </h3>
       <div>
-      <form action="" onSubmit={formik.handleSubmit}>
+        <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
-            name="title"
+            label="Digite aqui a categoria"
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
-            label="Digite aqui a categoria"
             id="categoria"
           />
           <div className="error">
@@ -65,7 +86,7 @@ const AddCategoria = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            Adicionar Categoria
+            {getPCatId !== undefined ? "Edit" : "Adicionar"} Categoria
           </button>
         </form>
       </div>
