@@ -1,11 +1,11 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect } from "react";
 import CustomInput from "../components/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { createMarca, resetState } from "../features/marca/marcaSlice";
+import { createMarca, getAmarca, updateAmarca, resetState } from "../features/marca/marcaSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Digitar o nome da marca é obrigatório"),
@@ -13,44 +13,74 @@ let schema = yup.object().shape({
 
 const AddMarca = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
+  const getMarcaId = location.pathname.split("/")[3];
   const newMarca = useSelector((state) => state.marca);
-  const { isSuccess, isError, isLoading, createdMarca } = newMarca;
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    createdMarca,
+    marcaNome,
+    updatedMarca,
+  } = newMarca;
+  useEffect(() => {
+    if (getMarcaId !== undefined) {
+      dispatch(getAmarca(getMarcaId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [getMarcaId]);
+
   useEffect(() => {
     if (isSuccess && createdMarca) {
       toast.success("Marca adicionada com sucesso!");
     }
+    if (isSuccess && updatedMarca) {
+      toast.success("Marca atualizada com sucesso!");
+      navigate("/admin/lista-marca");
+    }
+
     if (isError) {
-      toast.error("Algo de errado aconteceu!");
+      toast.error("Algo deu errado!");
     }
   }, [isSuccess, isError, isLoading]);
-
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      title: "",
+      title: marcaNome || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(createMarca(values));
-      formik.resetForm();
-      setTimeout(() => {
+      if (getMarcaId !== undefined) {
+        const data = { id: getMarcaId, marcaData: values };
+        dispatch(updateAmarca(data));
         dispatch(resetState());
-      }, 3000);
+      } else {
+        dispatch(createMarca(values));
+        formik.resetForm();
+        setTimeout(() => {
+          dispatch(resetState());
+        }, 300);
+      }
     },
   });
 
   return (
     <div>
-      <h3 className="mb-4 title">Adiciona Marca</h3>
+      <h3 className="mb-4 title">
+        {getMarcaId !== undefined ? "Edit" : "Adicionar"} Marca
+      </h3>
       <div>
-      <form action="" onSubmit={formik.handleSubmit}>
+        <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
             name="title"
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
-            label="Digite aqui a marca"
+            label="Insira a marca"
             id="marca"
           />
           <div className="error">
@@ -60,7 +90,7 @@ const AddMarca = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            Adicionar Marca
+            {getMarcaId !== undefined ? "Edit" : "Adicionar"} Marca
           </button>
         </form>
       </div>

@@ -31,7 +31,7 @@ const getCupom = async (id) => {
   return response.data;
 };
 
-const deleteCoupon = async (id) => {
+const deleteCupom = async (id) => {
   const response = await axios.delete(`${base_url}cupom/${id}`, config);
 
   return response.data;
@@ -39,7 +39,7 @@ const deleteCoupon = async (id) => {
 const couponService = {
   getCupons,
   createCupons,
-  deleteCoupon,
+  deleteCupom,
   getCupom,
   updateCupom,
 };

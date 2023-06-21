@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { getMarcas } from "../features/marca/marcaSlice";
+import { getMarcas, deleteAmarca, resetState } from "../features/marca/marcaSlice";
+import CustomModal from "../components/CustomModal";
 
 const columns = [
   {
@@ -23,8 +24,19 @@ const columns = [
 ];
 
 const MarcaLista = () => {
+  const [open, setOpen] = useState(false);
+  const [marcaId, setmarcaId] = useState("");
+  const showModal = (e) => {
+    setOpen(true);
+    setmarcaId(e);
+  };
+
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(resetState());
     dispatch(getMarcas());
   }, []);
   const marcaState = useSelector((state) => state.marca.marcas);
@@ -35,22 +47,44 @@ const MarcaLista = () => {
       title: marcaState[i].title,
       acao: (
         <>
-          <Link to="/" className="fs-3 text-danger">
+          <Link
+            to={`/admin/marca/${marcaState[i]._id}`}
+            className=" fs-3 text-danger"
+          >
             <BiEdit />
           </Link>
-          <Link to="/" className="fs-3 text-danger">
+          <button
+            className="ms-3 fs-3 text-danger bg-transparent border-0"
+            onClick={() => showModal(marcaState[i]._id)}
+          >
             <AiFillDelete />
-          </Link>
+          </button>
         </>
       ),
     });
   }
+  const deleteMarca = (e) => {
+    dispatch(deleteAmarca(e));
+
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getMarcas());
+    }, 100);
+  };
   return (
     <div>
       <h3 className="mb-4 title">Marcas</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModal
+        hideModal={hideModal}
+        open={open}
+        performAction={() => {
+          deleteMarca(marcaId);
+        }}
+        title="Tem certeza de que deseja excluir esta marca?"
+      />
     </div>
   );
 };

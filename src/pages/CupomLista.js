@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteACupom, getAllCupom } from "../features/cupom/cupomSlice";
 import CustomModal from "../components/CustomModal";
 
-
 const columns = [
   {
     title: "SNo",
@@ -95,7 +94,7 @@ const Couponlist = () => {
         performAction={() => {
           deleteCoupon(cupomId);
         }}
-        title="Are you sure you want to delete this Coupon?"
+        title="Tem certeza de que deseja excluir este cupom?"
       />
     </div>
   );

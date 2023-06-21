@@ -13,9 +13,9 @@ import {
 } from "../features/cupom/cupomSlice";
 
 let schema = yup.object().shape({
-  nome: yup.string().required("Coupon Name is Required"),
-  expiracao: yup.date().required("Expiry Date is Required"),
-  desconto: yup.number().required("Discount Percentage is Required"),
+  nome: yup.string().required("O nome do cupom é obrigatório."),
+  expiracao: yup.date().required("A data de validade é obrigatória."),
+  desconto: yup.number().required("A porcentagem de desconto é obrigatória."),
 });
 const AddCupom = () => {
   const dispatch = useDispatch();
@@ -71,7 +71,7 @@ const AddCupom = () => {
     onSubmit: (values) => {
       if (getCupomId !== undefined) {
         const data = { id: getCupomId, cupomData: values };
-        dispatch(updatedCupom(data));
+        dispatch(updateACupom(data));
         dispatch(resetState());
       } else {
         dispatch(createCupom(values));

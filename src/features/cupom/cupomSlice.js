@@ -61,7 +61,7 @@ const initialState = {
   message: "",
 };
 export const couponSlice = createSlice({
-  name: "coupons",
+  name: "cupons",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
