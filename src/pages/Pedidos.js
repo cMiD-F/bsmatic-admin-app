@@ -38,20 +38,19 @@ const Pedidos = () => {
   useEffect(() => {
     dispatch(getPedidos());
   }, []);
-  const pedidoState = useSelector((state) => state.auth.pedidos);
-  console.log(pedidoState);
+  const orderState = useSelector((state) => state.auth.orders);
   const data1 = [];
-  for (let i = 0; i < pedidoState.length; i++) {
+  for (let i = 0; i < orderState.length; i++) {
     data1.push({
       key: i + 1, // Use o identificador único do pedido como chave
-      nome: pedidoState[i].orderby.primeiroNome,
+      nome: orderState[i].orderby.primeiroNome,
       produto: (
-        <Link to={`/admin/pedidos/${pedidoState[i].orderby._id}`}>
+        <Link to={`/admin/pedido/${orderState[i].orderby._id}`}>
           Ver pedidos
         </Link>
       ),
-      valor: pedidoState[i].acompPagemento.valor,
-      date: new Date(pedidoState[i].createdAt).toLocaleString(),
+      valor: orderState[i].acompPagemento.valor,
+      date: new Date(orderState[i].createdAt).toLocaleString(),
       acao: (
         <>
           <Link to="/" className="fs-3 text-danger">
@@ -67,7 +66,7 @@ const Pedidos = () => {
 
   return (
     <div>
-      <h3 className="mb-4 title">Pedidos</h3>
+      <h3 className="mb-4 title">Pedido</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>

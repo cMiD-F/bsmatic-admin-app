@@ -23,7 +23,7 @@ import AddProduto from "./pages/AddProduto";
 import CupomLista from "./pages/CupomLista";
 import AddCupom from "./pages/AddCupom";
 import ViewPerguntas from "./pages/ViewPerguntas";
-import ViewPedidos from "./pages/ViewPedidos";
+import ViewPedido from "./pages/ViewPedido";
 
 function App() {
   return (
@@ -48,7 +48,7 @@ function App() {
           <Route path="blog-categoria" element={<AddBlogCat />} />
           <Route path="blog-categoria/:id" element={<AddBlogCat />} />
           <Route path="pedidos" element={<Pedidos />} />
-          <Route path="pedidos/:id" element={<ViewPedidos />} />
+          <Route path="pedido/:id" element={<ViewPedido />} />
           <Route path="usuarios" element={<Usuarios />} />
           <Route path="aplicacao" element={<AddAplicacao />} />
           <Route path="aplicacao/:id" element={<AddAplicacao />} />
