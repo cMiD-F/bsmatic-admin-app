@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Table } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCategorias, deleteABlogCat, resetState } from "../features/bcategoria/bcategoriaSlice";
+import {
+  deleteABlogCat,
+  getCategorias,
+  resetState,
+} from "../features/bcategoria/bcategoriaSlice";
 import CustomModal from "../components/CustomModal";
 
 const columns = [
@@ -15,14 +19,16 @@ const columns = [
   {
     title: "Nome",
     dataIndex: "title",
-    sorter: (a,b) => a.title.length - b.title.length,
+    sorter: (a, b) => a.title.length - b.title.length,
   },
+
   {
     title: "Ação",
     dataIndex: "acao",
   },
 ];
-const BlogCatLista = () => {
+
+const Blogcatlist = () => {
   const [open, setOpen] = useState(false);
   const [blogCatId, setblogCatId] = useState("");
   const showModal = (e) => {
@@ -39,6 +45,7 @@ const BlogCatLista = () => {
     dispatch(getCategorias());
   }, []);
   const bCatState = useSelector((state) => state.bCategoria.bCategorias);
+  console.log(bCatState);
   const data1 = [];
   for (let i = 0; i < bCatState.length; i++) {
     data1.push({
@@ -62,8 +69,7 @@ const BlogCatLista = () => {
       ),
     });
   }
-
-  const deleteBlogCategoria = (e) => {
+  const deleteBlogCategory = (e) => {
     dispatch(deleteABlogCat(e));
     setOpen(false);
     setTimeout(() => {
@@ -72,20 +78,20 @@ const BlogCatLista = () => {
   };
   return (
     <div>
-    <h3 className="mb-4 title">Blog Categories</h3>
-    <div>
-      <Table columns={columns} dataSource={data1} />
+      <h3 className="mb-4 title">Blog Categories</h3>
+      <div>
+        <Table columns={columns} dataSource={data1} />
+      </div>
+      <CustomModal
+        hideModal={hideModal}
+        open={open}
+        performAction={() => {
+          deleteBlogCategory(blogCatId);
+        }}
+        title="Tem certeza de que deseja excluir esta categoria de blog?"
+      />
     </div>
-    <CustomModal
-      hideModal={hideModal}
-      open={open}
-      performAction={() => {
-        deleteBlogCategoria(blogCatId);
-      }}
-      title="Tem certeza de que deseja excluir esta categoria de blog?"
-    />
-  </div>
-);
+  );
 };
 
-export default BlogCatLista;
+export default Blogcatlist;

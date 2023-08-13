@@ -1,5 +1,5 @@
 import axios from "axios";
-import { base_url } from "../../utils/base_url";
+import { base_url } from "../../utils/baseUrl"
 import { config } from "../../utils/axiosconfig";
 
 const getPerguntas = async () => {

@@ -1,17 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import usuarioService from "./usuarioServices";
+import usuarioService from "./usuarioService";
 
-export const getUsuarios = createAsyncThunk(
+export const getUsers = createAsyncThunk(
   "usuario/get-usuarios",
   async (thunkAPI) => {
     try {
-      return await usuarioService.getUsuarios();
+      return await usuarioService.getUsers();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
 const initialState = {
   usuario: [],
   isError: false,
@@ -19,23 +18,22 @@ const initialState = {
   isSuccess: false,
   message: "",
 };
-
 export const usuarioSlice = createSlice({
   name: "usuarios",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getUsuarios.pending, (state) => {
+      .addCase(getUsers.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getUsuarios.fulfilled, (state, action) => {
+      .addCase(getUsers.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.usuario = action.payload;
       })
-      .addCase(getUsuarios.rejected, (state, action) => {
+      .addCase(getUsers.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

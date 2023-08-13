@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import authService from "./authService";
+import authService from "./authServices";
 
 const getUserfromLocalStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
@@ -13,7 +13,6 @@ const initialState = {
   isSuccess: false,
   message: "",
 };
-
 export const login = createAsyncThunk(
   "auth/login-admin",
   async (userData, thunkAPI) => {
@@ -25,22 +24,21 @@ export const login = createAsyncThunk(
   }
 );
 
-export const getPedidos = createAsyncThunk(
-  "pedido/get-pedidos",
+export const getOrders = createAsyncThunk(
+  "order/get-orders",
   async (thunkAPI) => {
     try {
-      return await authService.getPedidos();
+      return await authService.getOrders();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
 export const getOrderByUser = createAsyncThunk(
-  "pedido/get-pedido",
+  "order/get-order",
   async (id, thunkAPI) => {
     try {
-      return await authService.getPedido(id);
+      return await authService.getOrder(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -49,10 +47,10 @@ export const getOrderByUser = createAsyncThunk(
 
 export const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: initialState,
   reducers: {},
-  extraReducers: (builder) => {
-    builder
+  extraReducers: (buildeer) => {
+    buildeer
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
@@ -69,17 +67,17 @@ export const authSlice = createSlice({
         state.message = action.error;
         state.isLoading = false;
       })
-      .addCase(getPedidos.pending, (state) => {
+      .addCase(getOrders.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getPedidos.fulfilled, (state, action) => {
+      .addCase(getOrders.fulfilled, (state, action) => {
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
         state.orders = action.payload;
         state.message = "success";
       })
-      .addCase(getPedidos.rejected, (state, action) => {
+      .addCase(getOrders.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
@@ -103,5 +101,4 @@ export const authSlice = createSlice({
       });
   },
 });
-
 export default authSlice.reducer;

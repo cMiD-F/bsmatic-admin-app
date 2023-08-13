@@ -1,33 +1,31 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import pCategoriaService from "./pcategoriaService";
+import pcategoriaService from "./pcategoriaService";
 
 export const getCategorias = createAsyncThunk(
   "produtoCategoria/get-categorias",
   async (thunkAPI) => {
     try {
-      return await pCategoriaService.getCategoriaProdutos();
+      return await pcategoriaService.getCategoriaProdutos();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
 export const createCategoria = createAsyncThunk(
   "produtoCategoria/create-categoria",
   async (categoriaData, thunkAPI) => {
     try {
-      return await pCategoriaService.createCategoria(categoriaData);
+      return await pcategoriaService.createCategoria(categoriaData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
 export const updateAProdutoCategoria = createAsyncThunk(
   "produtoCategoria/update-categoria",
   async (categoria, thunkAPI) => {
     try {
-      return await pCategoriaService.updateCategoriaProduto(categoria);
+      return await pcategoriaService.updateCategoriaProduto(categoria);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -38,25 +36,23 @@ export const deleteAProdutoCategoria = createAsyncThunk(
   "produtoCategoria/delete-categoria",
   async (id, thunkAPI) => {
     try {
-      return await pCategoriaService.deleteCategoriaProduto(id);
+      return await pcategoriaService.deleteCategoriaProduto(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
 export const getAProdutoCategoria = createAsyncThunk(
   "produtoCategoria/get-produto-categoria",
   async (id, thunkAPI) => {
     try {
-      return await pCategoriaService.getCategoriaProduto(id);
+      return await pcategoriaService.getCategoriaProduto(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
-export const resetState = createAction("Reset_all");
+export const resetState = createAction("RevertAll");
 
 const initialState = {
   pCategorias: [],
@@ -65,7 +61,6 @@ const initialState = {
   isSuccess: false,
   message: "",
 };
-
 export const pCategoriaSlice = createSlice({
   name: "pCategorias",
   initialState,

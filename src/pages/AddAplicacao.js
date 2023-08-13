@@ -5,26 +5,26 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { createAplicacao, getAplicacao, updateAplicacao, resetState} from "../features/aplicacao/aplicacaoSlice";
+import { createAplicacao, getAplicacao, resetState, updateAplicacao } from "../features/aplicacao/aplicacaoSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("O nome da aplicação é obrigatório"),
 });
-
 const AddAplicacao = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const getAplicacaoId = location.pathname.split("/")[3];
-  const navigate = useNavigate();
-  const newCategoria = useSelector((state) => state.aplicacao);
+  const newAplication = useSelector((state) => state.aplicacao);
   const {
     isSuccess,
     isError,
     isLoading,
     createdAplicacao,
-    aplicacaoNome,
     updatedAplicacao,
-  } = newCategoria;
+    aplicacaoNome,
+  } = newAplication;
+
   useEffect(() => {
     if (getAplicacaoId !== undefined) {
       dispatch(getAplicacao(getAplicacaoId));
@@ -43,7 +43,7 @@ const AddAplicacao = () => {
     if (isError) {
       toast.error("Algo deu errado!");
     }
-  }, [isSuccess, isError, isLoading]);
+  }, [isSuccess, isError, isLoading, createdAplicacao]);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -66,7 +66,7 @@ const AddAplicacao = () => {
   });
   return (
     <div>
-      <h3 className="mb-4  title">
+      <h3 className="mb-4 title">
         {getAplicacaoId !== undefined ? "Edit" : "Adicionar"} Aplicação
       </h3>
       <div>

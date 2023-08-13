@@ -35,7 +35,7 @@ const Addblog = () => {
     isError,
     isLoading,
     createdBlog,
-    blogName,
+    blogNome,
     blogDesc,
     blogCategoria,
     blogImages,
@@ -83,7 +83,7 @@ const Addblog = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      title: blogName || "",
+      title: blogNome || "",
       descricao: blogDesc || "",
       categoria: blogCategoria || "",
       images: "",
@@ -107,7 +107,7 @@ const Addblog = () => {
   return (
     <div>
       <h3 className="mb-4 title">
-        {getBlogId !== undefined ? "Edit" : "Add"} Blog
+        {getBlogId !== undefined ? "Edit" : "Adicionar"} Blog
       </h3>
 
       <div className="">
@@ -191,7 +191,7 @@ const Addblog = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            {getBlogId !== undefined ? "Edit" : "Add"} Blog
+            {getBlogId !== undefined ? "Edit" : "Adicionar"} Blog
           </button>
         </form>
       </div>

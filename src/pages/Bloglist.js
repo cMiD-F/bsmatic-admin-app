@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
-import { useDispatch, useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { getBlogs, resetState, deleteABlog } from "../features/blogs/blogSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteABlog, getBlogs, resetState } from "../features/blogs/blogSlice";
 import CustomModal from "../components/CustomModal";
 
 const columns = [
@@ -13,20 +13,20 @@ const columns = [
     dataIndex: "key",
   },
   {
-    title: "Titulo",
-    dataIndex: "title",
+    title: "Title",
+    dataIndex: "name",
   },
   {
-    title: "Categoria",
-    dataIndex: "categoria",
+    title: "Category",
+    dataIndex: "category",
   },
   {
-    title: "Ação",
-    dataIndex: "acao",
+    title: "Action",
+    dataIndex: "action",
   },
 ];
 
-const Bloglist = () => {
+const BlogLista = () => {
   const [open, setOpen] = useState(false);
   const [blogId, setblogId] = useState("");
   const showModal = (e) => {
@@ -47,10 +47,10 @@ const Bloglist = () => {
   for (let i = 0; i < getBlogState.length; i++) {
     data1.push({
       key: i + 1,
-      title: getBlogState[i].title,
-      categoria: getBlogState[i].categoria,
+      name: getBlogState[i].title,
+      category: getBlogState[i].category,
 
-      acao: (
+      action: (
         <>
           <Link
             to={`/admin/blog/${getBlogState[i].id}`}
@@ -78,7 +78,7 @@ const Bloglist = () => {
   };
   return (
     <div>
-      <h3 className="mb-4 title">Lista de blogs</h3>
+      <h3 className="mb-4 title">Blogs List</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -88,10 +88,10 @@ const Bloglist = () => {
         performAction={() => {
           deleteBlog(blogId);
         }}
-        title="Tem certeza que deseja excluir este blog ?"
+        title="Are you sure you want to delete this blog?"
       />
     </div>
   );
 };
 
-export default Bloglist;
+export default BlogLista;

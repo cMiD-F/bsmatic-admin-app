@@ -1,12 +1,12 @@
 import axios from "axios";
-import { base_url } from "../../utils/base_url";
+import { base_url } from "../../utils/baseUrl";
 import { config } from "../../utils/axiosconfig";
 
 const getBlogs = async () => {
   const response = await axios.get(`${base_url}blog/`);
+
   return response.data;
 };
-
 const createBlog = async (blog) => {
   const response = await axios.post(`${base_url}blog/`, blog, config);
 
@@ -17,8 +17,8 @@ const updateBlog = async (blog) => {
     `${base_url}blog/${blog.id}`,
     {
       title: blog.blogData.title,
-      description: blog.blogData.description,
-      category: blog.blogData.category,
+      categoria: blog.blogData.categoria,
+      descricao: blog.blogData.descricao,
       images: blog.blogData.images,
     },
     config

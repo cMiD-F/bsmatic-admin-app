@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import blogService from "./blogServices";
+import blogService from "./blogService";
 
 export const getBlogs = createAsyncThunk("blog/get-blogs", async (thunkAPI) => {
   try {
@@ -102,9 +102,9 @@ export const blogSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.blogName = action.payload.title;
-        state.blogDesc = action.payload.description;
-        state.blogCategory = action.payload.category;
+        state.blogNome = action.payload.title;
+        state.blogDesc = action.payload.descricao;
+        state.blogCategoria = action.payload.categoria;
         state.blogImages = action.payload.images;
       })
       .addCase(getABlog.rejected, (state, action) => {

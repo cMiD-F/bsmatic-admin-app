@@ -1,9 +1,10 @@
 import axios from "axios";
-import { base_url } from "../../utils/base_url";
 import { config } from "../../utils/axiosconfig";
+import { base_url } from "../../utils/baseUrl";
 
 const getMarcas = async () => {
   const response = await axios.get(`${base_url}marca/`);
+
   return response.data;
 };
 
@@ -22,7 +23,6 @@ const updateMarca = async (marca) => {
 
   return response.data;
 };
-
 const getMarca = async (id) => {
   const response = await axios.get(`${base_url}marca/${id}`, config);
 
@@ -38,9 +38,9 @@ const deleteMarca = async (id) => {
 const marcaService = {
   getMarcas,
   createMarca,
-  updateMarca,
   getMarca,
-  deleteMarca
+  updateMarca,
+  deleteMarca,
 };
 
 export default marcaService;

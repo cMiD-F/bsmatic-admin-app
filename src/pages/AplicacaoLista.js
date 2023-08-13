@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteAplicacao, getAplicacoes } from "../features/aplicacao/aplicacaoSlice";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import { Table } from "antd";
 import { Link } from "react-router-dom";
-import { getAplicacoes, deleteAplicacao, resetState } from "../features/aplicacao/aplicacaoSlice";
 import CustomModal from "../components/CustomModal";
 
 const columns = [
@@ -36,7 +36,6 @@ const AplicacaoLista = () => {
   };
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(resetState());
     dispatch(getAplicacoes());
   }, []);
   const aplicacaoState = useSelector((state) => state.aplicacao.aplicacoes);
@@ -63,7 +62,7 @@ const AplicacaoLista = () => {
       ),
     });
   }
-  const deleteColor = (e) => {
+  const deleteAplicacaoLocal = (e) => {
     dispatch(deleteAplicacao(e));
     setOpen(false);
     setTimeout(() => {
@@ -80,7 +79,7 @@ const AplicacaoLista = () => {
         hideModal={hideModal}
         open={open}
         performAction={() => {
-          deleteColor(aplicacaoId);
+          deleteAplicacaoLocal(aplicacaoId);
         }}
         title="Tem certeza de que deseja excluir esta aplicação?"
       />

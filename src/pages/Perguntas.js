@@ -3,42 +3,41 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiFillDelete, AiOutlineEye } from "react-icons/ai";
 import { Table } from "antd";
 import { Link } from "react-router-dom";
-import { getPerguntas, deleteAPergunta, resetState, updateAPergunta } from "../features/perguntas/perguntasSlice";
+import {getPerguntas, deleteAPergunta, resetState, updateAPergunta} from "../features/perguntas/perguntasSlice";
 import CustomModal from "../components/CustomModal";
 
-
 const columns = [
-    {
-      title: "SNo",
-      dataIndex: "key",
-    },
-    {
-      title: "Nome",
-      dataIndex: "nome",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-    },
-    {
-      title: "Telefone",
-      dataIndex: "telefone",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-    },
-    {
-      title: "Ação",
-      dataIndex: "acao",
-    },
-  ];
+  {
+    title: "SNo",
+    dataIndex: "key",
+  },
+  {
+    title: "Nome",
+    dataIndex: "nome",
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+  },
+  {
+    title: "Telefone",
+    dataIndex: "telefone",
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+  },
 
-  
+  {
+    title: "Ação",
+    dataIndex: "acao",
+  },
+];
+
 const Perguntas = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [pergId, setenqId] = useState("");
+  const [enqId, setenqId] = useState("");
   const showModal = (e) => {
     setOpen(true);
     setenqId(e);
@@ -66,17 +65,17 @@ const Perguntas = () => {
             defaultValue={enqState[i].status ? enqState[i].status : "Submetido"}
             className="form-control form-select"
             id=""
-            onChange={(e) => setPerguntaStatus(e.target.value, enqState[i]._id)}
+            onChange={(e) => setEnquiryStatus(e.target.value, enqState[i]._id)}
           >
-            <option value="Submitted">Submetido</option>
-            <option value="Contacted">Contatado</option>
-            <option value="In Progress">Em andamento</option>
-            <option value="Resolved">Resolvido</option>
+            <option value="Submetido">Submetido</option>
+            <option value="Contatado">Contatado</option>
+            <option value="Em andamento">Em andamento</option>
+            <option value="Resolvido">Resolvido</option>
           </select>
         </>
       ),
 
-      acao: (
+      action: (
         <>
           <Link
             className="ms-3 fs-3 text-danger"
@@ -94,7 +93,7 @@ const Perguntas = () => {
       ),
     });
   }
-  const setPerguntaStatus = (e, i) => {
+  const setEnquiryStatus = (e, i) => {
     console.log(e, i);
     const data = { id: i, enqData: e };
     dispatch(updateAPergunta(data));
@@ -116,7 +115,7 @@ const Perguntas = () => {
         hideModal={hideModal}
         open={open}
         performAction={() => {
-          deleteEnq(pergId);
+          deleteEnq(enqId);
         }}
         title="Tem certeza de que deseja excluir esta consulta?"
       />

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Table } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCategorias, deleteAProdutoCategoria, resetState } from "../features/pcategoria/pcategoriaSlice";
+import {
+  deleteAProdutoCategoria,
+  getCategorias,
+  resetState,
+} from "../features/pcategoria/pcategoriaSlice";
 import CustomModal from "../components/CustomModal";
 
 const columns = [
@@ -15,8 +19,9 @@ const columns = [
   {
     title: "Nome",
     dataIndex: "title",
-    sorter: (a,b) => a.title.length - b.title.length,
+    sorter: (a, b) => a.title.length - b.title.length,
   },
+
   {
     title: "Ação",
     dataIndex: "acao",

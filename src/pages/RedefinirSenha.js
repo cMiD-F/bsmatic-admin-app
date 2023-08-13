@@ -10,30 +10,27 @@ const RedefinirSenha = () => {
       <br />
       <br />
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
-        <h3 className="text-center title">Redefinir senha</h3>
-        <p className="text-center">
-        Por favor digite sua nova senha.
-        </p>
+        <h3 className="text-center title"> Reset Password</h3>
+        <p className="text-center">Please Enter your new password.</p>
         <form action="">
-          <CustomInput type="text" label="Nova Senha" id="senha" />
+          <CustomInput type="password" label="New Password" id="pass" />
           <CustomInput
-            type="text"
-            label="Confirmar Senha"
-            id="confirmarsenha"
+            type="password"
+            label="Confirm Password"
+            id="confirmpass"
           />
 
           <button
             className="border-0 px-3 py-2 text-white fw-bold w-100"
             style={{ background: "#ffd333" }}
-            type="Enviar"
+            type="submit"
           >
-            Redefinir senha
+            Reset Password
           </button>
         </form>
       </div>
     </div>
   );
 };
-
 
 export default RedefinirSenha;

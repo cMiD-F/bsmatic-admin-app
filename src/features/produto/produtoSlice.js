@@ -5,20 +5,19 @@ export const getProduto = createAsyncThunk(
   "produto/get-produtos",
   async (thunkAPI) => {
     try {
-      return await produtoService.getProduto();
+      return await produtoService.getProducts();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 export const createProduto = createAsyncThunk(
-  "produto/createProduto",
-  async (produtos, { rejectWithValue }) => {
+  "produto/create-produtos",
+  async (produtoData, thunkAPI) => {
     try {
-      const response = await produtoService.createProdutos(produtos);
-      return response.data;
+      return await produtoService.createProduct(produtoData);
     } catch (error) {
-      return rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

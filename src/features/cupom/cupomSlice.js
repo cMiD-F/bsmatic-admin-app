@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import cupomService from "./cupomService";
 
-export const getAllCupom = createAsyncThunk(
+export const getAllCoupon = createAsyncThunk(
   "cupom/get-cupons",
   async (thunkAPI) => {
     try {
@@ -11,7 +11,7 @@ export const getAllCupom = createAsyncThunk(
     }
   }
 );
-export const createCupom = createAsyncThunk(
+export const createCoupon = createAsyncThunk(
   "cupom/create-cupom",
   async (cupomData, thunkAPI) => {
     try {
@@ -21,7 +21,7 @@ export const createCupom = createAsyncThunk(
     }
   }
 );
-export const deleteACupom = createAsyncThunk(
+export const deleteACoupon = createAsyncThunk(
   "cupom/delete-cupom",
   async (id, thunkAPI) => {
     try {
@@ -31,7 +31,7 @@ export const deleteACupom = createAsyncThunk(
     }
   }
 );
-export const getACupom = createAsyncThunk(
+export const getACoupon = createAsyncThunk(
   "cupom/get-cupom",
   async (id, thunkAPI) => {
     try {
@@ -41,7 +41,7 @@ export const getACupom = createAsyncThunk(
     }
   }
 );
-export const updateACupom = createAsyncThunk(
+export const updateACoupon = createAsyncThunk(
   "cupom/update-cupom",
   async (cupom, thunkAPI) => {
     try {
@@ -60,78 +60,61 @@ const initialState = {
   isSuccess: false,
   message: "",
 };
-export const couponSlice = createSlice({
+export const cupomSlice = createSlice({
   name: "cupons",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllCupom.pending, (state) => {
+      .addCase(getAllCoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getAllCupom.fulfilled, (state, action) => {
+      .addCase(getAllCoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.cupons = action.payload;
       })
-      .addCase(getAllCupom.rejected, (state, action) => {
+      .addCase(getAllCoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(createCupom.pending, (state) => {
+      .addCase(createCoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createCupom.fulfilled, (state, action) => {
+      .addCase(createCoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createdCupom = action.payload;
+        state.createdCoupon = action.payload;
       })
-      .addCase(createCupom.rejected, (state, action) => {
+      .addCase(createCoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(deleteACupom.pending, (state) => {
+      .addCase(deleteACoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteACupom.fulfilled, (state, action) => {
+      .addCase(deleteACoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.deletedCupom = action.payload;
+        state.deletedCoupon = action.payload;
       })
-      .addCase(deleteACupom.rejected, (state, action) => {
+      .addCase(deleteACoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(getACupom.pending, (state) => {
+      .addCase(getACoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getACupom.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isError = false;
-        state.isSuccess = true;
-        state.cupomNome = action.payload[0].nome;
-        state.cupomDesconto = action.payload[0].desconto;
-        state.cupomExpiracao = action.payload[0].expiracao;
-      })
-      .addCase(getACupom.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.isSuccess = false;
-        state.message = action.error;
-      })
-      .addCase(updateACupom.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(updateACupom.fulfilled, (state, action) => {
+      .addCase(getACoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
@@ -139,7 +122,24 @@ export const couponSlice = createSlice({
         state.cupomDesconto = action.payload[0].desconto;
         state.cupomExpiracao = action.payload[0].expiracao;
       })
-      .addCase(updateACupom.rejected, (state, action) => {
+      .addCase(getACoupon.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(updateACoupon.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateACoupon.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.cupomNome = action.payload[0].nome;
+        state.cupomDesconto = action.payload[0].desconto;
+        state.cupomExpiracao = action.payload[0].expiracao;
+      })
+      .addCase(updateACoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
@@ -149,4 +149,4 @@ export const couponSlice = createSlice({
   },
 });
 
-export default couponSlice.reducer;
+export default cupomSlice.reducer;

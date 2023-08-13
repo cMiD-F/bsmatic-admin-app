@@ -5,18 +5,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { createCategoria, getAProdutoCategoria, updateAProdutoCategoria ,resetState } from "../features/pcategoria/pcategoriaSlice";
-
+import {
+  createCategoria,
+  getAProdutoCategoria,
+  resetState,
+  updateAProdutoCategoria,
+} from "../features/pcategoria/pcategoriaSlice";
 let schema = yup.object().shape({
   title: yup.string().required("O nome da categoria é obrigatório"),
 });
-
 const AddCategoria = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const getPCatId = location.pathname.split("/")[3];
   const navigate = useNavigate();
-  const newCategoria = useSelector((state) => state.pCategoria);
+  const newCategory = useSelector((state) => state.pCategoria);
   const {
     isSuccess,
     isError,
@@ -24,7 +27,7 @@ const AddCategoria = () => {
     createdCategoria,
     categoriaNome,
     updatedCategoria,
-  } = newCategoria;
+  } = newCategory;
   useEffect(() => {
     if (getPCatId !== undefined) {
       dispatch(getAProdutoCategoria(getPCatId));
@@ -44,6 +47,7 @@ const AddCategoria = () => {
       toast.error("Algo deu errado!");
     }
   }, [isSuccess, isError, isLoading]);
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -77,7 +81,7 @@ const AddCategoria = () => {
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
-            id="categoria"
+            id="brand"
           />
           <div className="error">
             {formik.touched.title && formik.errors.title}

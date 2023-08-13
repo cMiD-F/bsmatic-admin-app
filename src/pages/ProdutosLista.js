@@ -14,12 +14,12 @@ const columns = [
   {
     title: "Item",
     dataIndex: "item",
-    sorter: (a,b) => a.item.length - b.item.length,
+    sorter: (a, b) => a.item.length - b.item.length,
   },
   {
     title: "Marca",
     dataIndex: "marca",
-    sorter: (a,b) => a.marca.length - b.marca.length,
+    sorter: (a, b) => a.marca.length - b.marca.length,
   },
   {
     title: "Itens Inclusos",
@@ -28,7 +28,7 @@ const columns = [
   {
     title: "Valor",
     dataIndex: "valorBS",
-    sorter: (a,b) => a.valorBS - b.valorBS,
+    sorter: (a, b) => a.valorBS - b.valorBS,
   },
   {
     title: "Ação",
@@ -36,7 +36,7 @@ const columns = [
   },
 ];
 
-const ListaProduto = () => {
+const ProdutosLista = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProduto());
@@ -52,10 +52,10 @@ const ListaProduto = () => {
       valorBS: `${produtoState[i].valorBS}`,
       acao: (
         <>
-          <Link to="/" className="fs-3 text-danger">
+          <Link to="/" className=" fs-3 text-danger">
             <BiEdit />
           </Link>
-          <Link to="/" className="ms-3 fs-3 text-danger">
+          <Link className="ms-3 fs-3 text-danger" to="/">
             <AiFillDelete />
           </Link>
         </>
@@ -67,10 +67,10 @@ const ListaProduto = () => {
     <div>
       <h3 className="mb-4 title">Produtos</h3>
       <div>
-        <Table columns={columns} dataSource={data1}></Table>
+        <Table columns={columns} dataSource={data1} />
       </div>
     </div>
   );
 };
 
-export default ListaProduto;
+export default ProdutosLista;

@@ -11,8 +11,7 @@ export const getMarcas = createAsyncThunk(
     }
   }
 );
-
-export const getAmarca = createAsyncThunk(
+export const getAMarca = createAsyncThunk(
   "marca/get-marca",
   async (id, thunkAPI) => {
     try {
@@ -22,20 +21,17 @@ export const getAmarca = createAsyncThunk(
     }
   }
 );
-
 export const createMarca = createAsyncThunk(
-  "marca/createMarca",
-  async (marcaData, { rejectWithValue }) => {
+  "marca/create-marca",
+  async (marcaData, thunkAPI) => {
     try {
-      const response = await marcaService.createMarca(marcaData);
-      return response.data;
+      return await marcaService.createMarca(marcaData);
     } catch (error) {
-      return rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
-export const updateAmarca = createAsyncThunk(
+export const updateAMarca = createAsyncThunk(
   "marca/update-marca",
   async (marca, thunkAPI) => {
     try {
@@ -46,7 +42,7 @@ export const updateAmarca = createAsyncThunk(
   }
 );
 
-export const deleteAmarca = createAsyncThunk(
+export const deleteAMarca = createAsyncThunk(
   "marca/delete-marca",
   async (id, thunkAPI) => {
     try {
@@ -66,7 +62,6 @@ const initialState = {
   isSuccess: false,
   message: "",
 };
-
 export const marcaSlice = createSlice({
   name: "marcas",
   initialState,
@@ -103,46 +98,46 @@ export const marcaSlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(getAmarca.pending, (state) => {
+      .addCase(getAMarca.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getAmarca.fulfilled, (state, action) => {
+      .addCase(getAMarca.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.marcaNome = action.payload.title;
       })
-      .addCase(getAmarca.rejected, (state, action) => {
+      .addCase(getAMarca.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(updateAmarca.pending, (state) => {
+      .addCase(updateAMarca.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateAmarca.fulfilled, (state, action) => {
+      .addCase(updateAMarca.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.updatedMarca = action.payload;
       })
-      .addCase(updateAmarca.rejected, (state, action) => {
+      .addCase(updateAMarca.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(deleteAmarca.pending, (state) => {
+      .addCase(deleteAMarca.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteAmarca.fulfilled, (state, action) => {
+      .addCase(deleteAMarca.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.deletedMarca = action.payload;
       })
-      .addCase(deleteAmarca.rejected, (state, action) => {
+      .addCase(deleteAMarca.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
@@ -151,4 +146,5 @@ export const marcaSlice = createSlice({
       .addCase(resetState, () => initialState);
   },
 });
+
 export default marcaSlice.reducer;

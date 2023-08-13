@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-  getAPergunta,
-  resetState,
-  updateAPergunta,
+ getAPergunta,resetState,updateAPergunta,
 } from "../features/perguntas/perguntasSlice";
 import { BiArrowBack } from "react-icons/bi";
 
@@ -12,34 +10,34 @@ const ViewPerguntas = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const getPergId = location.pathname.split("/")[3];
+  const getEnqId = location.pathname.split("/")[3];
   const enqState = useSelector((state) => state.pergunta);
   const { pergNome, pergTelefone, pergEmail, pergComentario, pergStatus } = enqState;
 
   useEffect(() => {
-    dispatch(getAPergunta(getPergId));
-  }, [getPergId]);
+    dispatch(getAPergunta(getEnqId));
+  }, [getEnqId]);
   const goBack = () => {
     navigate(-1);
   };
-  const setPerguntaStatus = (e, i) => {
+  const setEnquiryStatus = (e, i) => {
     console.log(e, i);
     const data = { id: i, enqData: e };
     dispatch(updateAPergunta(data));
     dispatch(resetState());
     setTimeout(() => {
-      dispatch(getAPergunta(getPergId));
+      dispatch(getAPergunta(getEnqId));
     }, 100);
   };
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center">
-        <h3 className="mb-4 title">Ver consulta</h3>
+        <h3 className="mb-4 title">Visualizar Pergunta</h3>
         <button
           className="bg-transpatent border-0 fs-6 mb-0 d-flex align-items-center gap-1"
           onClick={goBack}
         >
-          <BiArrowBack className="fs-5" /> Volte
+          <BiArrowBack className="fs-5" /> Voltar
         </button>
       </div>
       <div className="mt-5 bg-white p-4 d-flex gap-3 flex-column rounded-3">
@@ -50,13 +48,13 @@ const ViewPerguntas = () => {
         <div className="d-flex align-items-center gap-3">
           <h6 className="mb-0">Telefone:</h6>
           <p className="mb-0">
-            <a href={`tel:+11${pergTelefone}`}>{pergTelefone}</a>
+            <a href={`tel:+91${pergTelefone}`}>{pergTelefone}</a>
           </p>
         </div>
         <div className="d-flex align-items-center gap-3">
           <h6 className="mb-0">Email:</h6>
           <p className="mb-0">
-            <a href={`email:{pergEmail}`}>{pergEmail}</a>
+            <a href={`mailto:{pergEmail}`}>{pergEmail}</a>
           </p>
         </div>
         <div className="d-flex align-items-center gap-3">
@@ -72,15 +70,15 @@ const ViewPerguntas = () => {
           <div>
             <select
               name=""
-              defaultValue={pergStatus ? pergStatus : "Submetido"}
+              defaultValue={pergStatus ? pergStatus : "Submitted"}
               className="form-control form-select"
               id=""
-              onChange={(e) => setPerguntaStatus(e.target.value, getPergId)}
+              onChange={(e) => setEnquiryStatus(e.target.value, getEnqId)}
             >
-              <option value="Submitted">Submetido</option>
-              <option value="Contacted">Contatado</option>
-              <option value="In Progress">Em andamento</option>
-              <option value="Resolved">Resolvido</option>
+              <option value="Submitted">Submitted</option>
+              <option value="Contacted">Contacted</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
             </select>
           </div>
         </div>

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import CustomInput from "../components/CustomInput";
 import { Link, useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
 import * as yup from "yup";
+import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
 
@@ -25,13 +25,12 @@ const Login = () => {
     validationSchema: schema,
     onSubmit: (values) => {
       dispatch(login(values));
-      alert(JSON.stringify(values, null, 2));
     },
   });
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const authState = useSelector((state) => state);
+
+  const { user, isError, isSuccess, isLoading, message } = authState.auth;
 
   useEffect(() => {
     if (isSuccess) {
@@ -39,8 +38,7 @@ const Login = () => {
     } else {
       navigate("");
     }
-  }, [user, isLoading, isError, isSuccess, message]);
-
+  }, [user, isError, isSuccess, isLoading]);
   return (
     <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
       <br />
@@ -52,13 +50,12 @@ const Login = () => {
         <h3 className="text-center title">Login</h3>
         <p className="text-center">Entre na sua conta para continuar.</p>
         <div className="error text-center">
-          {message.message === "Negado" ? "Você não é um Administrador" : ""}
+          {message.message == "Negado" ? "Você não é um Administrador" : ""}
         </div>
-
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
-            label="Email"
+            label="Email "
             id="email"
             name="email"
             onChng={formik.handleChange("email")}
@@ -68,7 +65,6 @@ const Login = () => {
           <div className="error mt-2">
             {formik.touched.email && formik.errors.email}
           </div>
-
           <CustomInput
             type="password"
             name="senha"
@@ -81,16 +77,17 @@ const Login = () => {
           <div className="error mt-2">
             {formik.touched.password && formik.errors.password}
           </div>
-
           <div className="mb-3 text-end">
-            <Link to="/esqueceu-senha">Esqueceu sua senha ?</Link>
+            <Link to="/esqueceu-senha" className="">
+            Esqueceu sua senha ?
+            </Link>
           </div>
           <button
             className="border-0 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5"
             style={{ background: "#ffd333" }}
             type="Enviar"
           >
-            Entrar
+            Login
           </button>
         </form>
       </div>

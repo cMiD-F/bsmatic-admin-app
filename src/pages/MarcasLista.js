@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
-import { useDispatch, useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { getMarcas, deleteAmarca, resetState } from "../features/marca/marcaSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteAMarca,
+  getMarcas,
+  resetState,
+} from "../features/marca/marcaSlice";
 import CustomModal from "../components/CustomModal";
 
 const columns = [
@@ -15,7 +19,7 @@ const columns = [
   {
     title: "Marca",
     dataIndex: "title",
-    sorter: (a,b) => a.title.length - b.title.length,
+    sorter: (a, b) => a.title.length - b.title.length,
   },
   {
     title: "Ação",
@@ -23,7 +27,7 @@ const columns = [
   },
 ];
 
-const MarcaLista = () => {
+const MarcasLista = () => {
   const [open, setOpen] = useState(false);
   const [marcaId, setmarcaId] = useState("");
   const showModal = (e) => {
@@ -64,7 +68,7 @@ const MarcaLista = () => {
     });
   }
   const deleteMarca = (e) => {
-    dispatch(deleteAmarca(e));
+    dispatch(deleteAMarca(e));
 
     setOpen(false);
     setTimeout(() => {
@@ -73,7 +77,7 @@ const MarcaLista = () => {
   };
   return (
     <div>
-      <h3 className="mb-4 title">Marcas</h3>
+      <h3 className="mb-4 title">Brands</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -89,4 +93,4 @@ const MarcaLista = () => {
   );
 };
 
-export default MarcaLista;
+export default MarcasLista;

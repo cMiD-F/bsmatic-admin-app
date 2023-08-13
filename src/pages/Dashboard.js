@@ -1,37 +1,34 @@
 import React from "react";
-import { BsArrowDownRight } from "react-icons/bs";
+import { BsArrowDownRight, BsArrowUpRight } from "react-icons/bs";
 import { Column } from "@ant-design/plots";
 import { Table } from "antd";
-import {BiEdit} from "react-icons/bi"
-import {AiFillDelete} from "react-icons/ai"
 const columns = [
   {
     title: "SNo",
     dataIndex: "key",
   },
   {
-    title: "Nome",
-    dataIndex: "nome",
+    title: "Name",
+    dataIndex: "name",
   },
   {
-    title: "Produto",
-    dataIndex: "produto",
+    title: "Product",
+    dataIndex: "product",
   },
   {
     title: "Status",
-    dataIndex: "status",
+    dataIndex: "staus",
   },
 ];
 const data1 = [];
 for (let i = 0; i < 46; i++) {
   data1.push({
     key: i,
-    nome: `BSMatic ${i}`,
-    produto: 32,
-    status: `Confirmado. ${i}`,
+    name: `Edward King ${i}`,
+    product: 32,
+    staus: `London, Park Lane no. ${i}`,
   });
 }
-
 const Dashboard = () => {
   const data = [
     {
@@ -39,7 +36,7 @@ const Dashboard = () => {
       sales: 38,
     },
     {
-      type: "Fev",
+      type: "Feb",
       sales: 52,
     },
     {
@@ -47,11 +44,11 @@ const Dashboard = () => {
       sales: 61,
     },
     {
-      type: "Abr",
+      type: "Apr",
       sales: 145,
     },
     {
-      type: "Mai",
+      type: "May",
       sales: 48,
     },
     {
@@ -59,19 +56,19 @@ const Dashboard = () => {
       sales: 38,
     },
     {
-      type: "Jul",
+      type: "July",
       sales: 38,
     },
     {
-      type: "Ago",
+      type: "Aug",
       sales: 38,
     },
     {
-      type: "Set",
+      type: "Sept",
       sales: 38,
     },
     {
-      type: "Out",
+      type: "Oct",
       sales: 38,
     },
     {
@@ -79,7 +76,7 @@ const Dashboard = () => {
       sales: 38,
     },
     {
-      type: "Dez",
+      type: "Dec",
       sales: 38,
     },
   ];
@@ -105,10 +102,10 @@ const Dashboard = () => {
     },
     meta: {
       type: {
-        alias: "Mês",
+        alias: "Month",
       },
       sales: {
-        alias: "Renda",
+        alias: "Income",
       },
     },
   };
@@ -116,50 +113,51 @@ const Dashboard = () => {
     <div>
       <h3 className="mb-4 title">Dashboard</h3>
       <div className="d-flex justify-content-between align-items-center gap-3">
-        <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roundned-3">
+        <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
           <div>
-            <p className="desc">Total</p> <h4 className="mb-0 sub-title">R$1100</h4>
+            <p className="desc">Total</p>
+            <h4 className="mb-0 sub-title">$1100</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6>
               <BsArrowDownRight /> 32%
             </h6>
-            <p className="mb-0 desc">Comparado a junho 2023</p>
+            <p className="mb-0  desc">Compared To April 2022</p>
           </div>
         </div>
-        <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roundned-3">
+        <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
           <div>
-            <p className="desc">Total</p> <h4 className="mb-0 sub-title">R$1100</h4>
+            <p className="desc">Total</p>
+            <h4 className="mb-0 sub-title">$1100</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6 className="red">
-              <BsArrowDownRight />
-              32%
+              <BsArrowDownRight /> 32%
             </h6>
-            <p className="mb-0 desc">Comparado a junho 2023</p>
+            <p className="mb-0  desc">Compared To April 2022</p>
           </div>
         </div>
-        <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roundned-3">
+        <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
           <div>
-            <p className="desc">Total</p> <h4 className="mb-0 sub-title">R$1100</h4>
+            <p className="desc">Total</p>
+            <h4 className="mb-0 sub-title">$1100</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6 className="green">
-              <BsArrowDownRight />
-              32%
+              <BsArrowDownRight /> 32%
             </h6>
-            <p className="mb-0 desc">Comparado a junho 2023</p>
+            <p className="mb-0 desc">Compared To April 2022</p>
           </div>
         </div>
       </div>
       <div className="mt-4">
-        <h3 className="mb-4 title">Estatísticas de renda</h3>
+        <h3 className="mb-5 title">Income Statics</h3>
         <div>
           <Column {...config} />
         </div>
       </div>
       <div className="mt-4">
-        <h3 className="mb-4 title">Pedidos recentes</h3>
+        <h3 className="mb-5 title">Recent Orders</h3>
         <div>
           <Table columns={columns} dataSource={data1} />
         </div>

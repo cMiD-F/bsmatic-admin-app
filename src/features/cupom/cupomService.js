@@ -1,14 +1,15 @@
 import axios from "axios";
-import { base_url } from "../../utils/base_url";
 import { config } from "../../utils/axiosconfig";
+import { base_url } from "../../utils/baseUrl";
+
 const getCupons = async () => {
-  const response = await axios.get(`${base_url}cupom`, config);
+  const response = await axios.get(`${base_url}cupom/`, config);
 
   return response.data;
 };
 
 const createCupons = async (cupom) => {
-  const response = await axios.post(`${base_url}cupom`, cupom, config);
+  const response = await axios.post(`${base_url}cupom/`, cupom, config);
 
   return response.data;
 };
@@ -36,7 +37,7 @@ const deleteCupom = async (id) => {
 
   return response.data;
 };
-const couponService = {
+const cupomService = {
   getCupons,
   createCupons,
   deleteCupom,
@@ -44,4 +45,4 @@ const couponService = {
   updateCupom,
 };
 
-export default couponService;
+export default cupomService;

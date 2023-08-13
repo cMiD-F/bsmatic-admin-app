@@ -4,7 +4,7 @@ import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Table } from "antd";
 import { Link } from "react-router-dom";
-import { getPedidos } from "../features/auth/authSlice";
+import { getOrders } from "../features/auth/authSlice";
 
 const columns = [
   {
@@ -36,14 +36,14 @@ const columns = [
 const Pedidos = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getPedidos());
+    dispatch(getOrders());
   }, []);
   const orderState = useSelector((state) => state.auth.orders);
   const data1 = [];
   for (let i = 0; i < orderState.length; i++) {
     data1.push({
       key: i + 1, // Use o identificador único do pedido como chave
-      nome: orderState[i].orderby.primeiroNome,
+      nome: orderState[i].orderby.primeironome,
       produto: (
         <Link to={`/admin/pedido/${orderState[i].orderby._id}`}>
           Ver pedidos

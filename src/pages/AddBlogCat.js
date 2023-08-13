@@ -24,7 +24,7 @@ const Addblogcat = () => {
     isSuccess,
     isError,
     isLoading,
-    createBlogCategoria,
+    createBlogCategory,
     blogCatName,
     updatedBlogCategory,
   } = newBlogCategoria;
@@ -36,7 +36,7 @@ const Addblogcat = () => {
     }
   }, [getBlogCatId]);
   useEffect(() => {
-    if (isSuccess && createBlogCategoria) {
+    if (isSuccess && createBlogCategory) {
       toast.success("Categoria do blog adicionada com sucesso!");
     }
     if (isSuccess && updatedBlogCategory) {
@@ -44,7 +44,7 @@ const Addblogcat = () => {
       navigate("/admin/lista-blog-categoria");
     }
     if (isError) {
-      toast.error("Algo deu errado!");
+      toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
   const formik = useFormik({
@@ -81,7 +81,7 @@ const Addblogcat = () => {
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
             label="Insira a categoria do blog"
-            id="bCategoria"
+            id="blogcat"
           />
           <div className="error">
             {formik.touched.title && formik.errors.title}

@@ -6,16 +6,16 @@ import RedefinirSenha from "./pages/RedefinirSenha";
 import EsqueceuSenha from "./pages/EsqueceuSenha";
 import MainLayout from "./components/MainLayout";
 import Perguntas from "./pages/Perguntas";
-import BlogLista from "./pages/BlogLista";
-import BlogCatLista from "./pages/BlogCatLista";
+import Bloglist from "./pages/Bloglist";
+import Blogcatlist from "./pages/Blogcatlist";
 import Pedidos from "./pages/Pedidos";
 import Usuarios from "./pages/Usuarios";
 import AplicacaoLista from "./pages/AplicacaoLista";
 import CategoriaLista from "./pages/CategoriaLista";
-import MarcaLista from "./pages/MarcasLista";
+import MarcasLista from "./pages/MarcasLista";
 import ProdutosLista from "./pages/ProdutosLista";
-import AddBlog from "./pages/AddBlog";
-import AddBlogCat from "./pages/AddBlogCat";
+import Addblog from "./pages/AddBlog";
+import Addblogcat from "./pages/AddBlogCat";
 import AddAplicacao from "./pages/AddAplicacao";
 import AddCategoria from "./pages/AddCategoria";
 import AddMarca from "./pages/AddMarca";
@@ -24,7 +24,6 @@ import CupomLista from "./pages/CupomLista";
 import AddCupom from "./pages/AddCupom";
 import ViewPerguntas from "./pages/ViewPerguntas";
 import ViewPedido from "./pages/ViewPedido";
-
 function App() {
   return (
     <Router>
@@ -36,30 +35,29 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="perguntas" element={<Perguntas />} />
           <Route path="perguntas/:id" element={<ViewPerguntas />} />
-          <Route path="lista-blog" element={<BlogLista />} />
-          <Route path="blog" element={<AddBlog />} />
-          <Route path="blog/:id" element={<AddBlog />} />
+          <Route path="lista-blog" element={<Bloglist />} />
+          <Route path="blog" element={<Addblog />} />
+          <Route path="blog/:id" element={<Addblog />} />
           <Route path="lista-cupom" element={<CupomLista />} />
           <Route path="cupom" element={<AddCupom />} />
           <Route path="cupom/:id" element={<AddCupom />} />
-          <Route path="categoria" element={<AddCategoria />} />
-          <Route path="categoria/:id" element={<AddCategoria  />} />
-          <Route path="lista-blog-categoria" element={<BlogCatLista />} />
-          <Route path="blog-categoria" element={<AddBlogCat />} />
-          <Route path="blog-categoria/:id" element={<AddBlogCat />} />
-          <Route path="pedidos" element={<Pedidos />} />
+          <Route path="lista-blog-categoria" element={<Blogcatlist />} />
+          <Route path="blog-categoria" element={<Addblogcat />} />
+          <Route path="blog-categoria/:id" element={<Addblogcat />} />
+          <Route path="pedido" element={<Pedidos />} />
           <Route path="pedido/:id" element={<ViewPedido />} />
           <Route path="usuarios" element={<Usuarios />} />
           <Route path="aplicacao" element={<AddAplicacao />} />
           <Route path="aplicacao/:id" element={<AddAplicacao />} />
           <Route path="lista-aplicacao" element={<AplicacaoLista />} />
-          <Route path="lista-categoria" element={<CategoriaLista />} />          
+          <Route path="lista-categoria" element={<CategoriaLista />} />
+          <Route path="categoria" element={<AddCategoria />} />
+          <Route path="categoria/:id" element={<AddCategoria />} />
+          <Route path="lista-marca" element={<MarcasLista />} />
           <Route path="marca" element={<AddMarca />} />
-          <Route path="lista-marca" element={<MarcaLista />} />
           <Route path="marca/:id" element={<AddMarca />} />
           <Route path="produto-lista" element={<ProdutosLista />} />
           <Route path="produto" element={<AddProduto />} />
-          
         </Route>
       </Routes>
     </Router>

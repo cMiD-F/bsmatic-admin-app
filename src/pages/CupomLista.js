@@ -4,7 +4,7 @@ import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteACupom, getAllCupom } from "../features/cupom/cupomSlice";
+import { deleteACoupon, getAllCoupon } from "../features/cupom/cupomSlice";
 import CustomModal from "../components/CustomModal";
 
 const columns = [
@@ -12,6 +12,7 @@ const columns = [
     title: "SNo",
     dataIndex: "key",
   },
+
   {
     title: "Nome",
     dataIndex: "nome",
@@ -33,7 +34,7 @@ const columns = [
   },
 ];
 
-const Couponlist = () => {
+const CupomLista = () => {
   const [open, setOpen] = useState(false);
   const [cupomId, setcupomId] = useState("");
   const showModal = (e) => {
@@ -46,7 +47,7 @@ const Couponlist = () => {
   };
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllCupom());
+    dispatch(getAllCoupon());
   }, []);
   const cupomState = useSelector((state) => state.cupom.cupons);
   const data1 = [];
@@ -75,16 +76,16 @@ const Couponlist = () => {
     });
   }
   const deleteCoupon = (e) => {
-    dispatch(deleteACupom(e));
+    dispatch(deleteACoupon(e));
 
     setOpen(false);
     setTimeout(() => {
-      dispatch(getAllCupom());
+      dispatch(getAllCoupon());
     }, 100);
   };
   return (
     <div>
-      <h3 className="mb-4 title">Cupons</h3>
+      <h3 className="mb-4 title">Cupons para desconto</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -100,4 +101,4 @@ const Couponlist = () => {
   );
 };
 
-export default Couponlist;
+export default CupomLista;

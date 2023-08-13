@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { getMarcas } from "../features/marca/marcaSlice";
 import { getCategorias } from "../features/pcategoria/pcategoriaSlice";
-import { getAplicacao } from "../features/aplicacao/aplicacaoSlice";
+import { getAplicacoes } from "../features/aplicacao/aplicacaoSlice";
 import { Select } from "antd";
 import Dropzone from "react-dropzone";
 import { delImg, uploadImg } from "../features/upload/uploadSlice";
@@ -19,13 +19,13 @@ let schema = yup.object().shape({
   item: yup.string().required("Nome do produto é obrigatório"),
   itensInclusos: yup
     .string()
-    .required("Descrição dos itens inclusos é obrigatório"),
+    .required("Descrição dos itens inclusos é obrigatória"),
   valorBS: yup.number().required("Declarar um valor é obrigatório"),
   marca: yup.string().required("Selecionar uma marca é obrigatório"),
-  categoria: yup.string().required("Selecionar uma categoria é obrigatório"),
-  aplicacao: yup.string().required("Selecionar a aplicação é obrigatório"),
-  quantidade: yup.string().required("Declarar uma quantidade é obrigatório"),
-  tags: yup.string().required("Tag é obrigatório"),
+  categoria: yup.string().required("Selecionar uma categoria é obrigatória"),
+  aplicacao: yup.string().required("Selecionar a aplicação é obrigatória"),
+  quantidade: yup.string().required("Declarar uma quantidade é obrigatória"),
+  tags: yup.string().required("Tag é obrigatória"),
 });
 
 const AddProduto = () => {
@@ -36,7 +36,7 @@ const AddProduto = () => {
   useEffect(() => {
     dispatch(getMarcas());
     dispatch(getCategorias());
-    dispatch(getAplicacao());
+    dispatch(getAplicacoes());
   }, []);
 
   const marcaState = useSelector((state) => state.marca.marcas);
@@ -104,7 +104,7 @@ const AddProduto = () => {
             name="item"
             onChng={formik.handleChange("item")}
             onBlr={formik.handleBlur("item")}
-            value={formik.values.item}
+            val={formik.values.item}
           />
           <div className="error">
             {formik.touched.item && formik.errors.item}
@@ -128,14 +128,14 @@ const AddProduto = () => {
             label="Digite o tempo de garantia"
             name="garantia"
             onChng={formik.handleChange("garantia")}
-            onBlr={formik.handleBlur("garantiao")}
-            value={formik.values.cgarantia}
+            onBlr={formik.handleBlur("garantia")}
+            value={formik.values.garantia}
           />
           <div className="error">
             {formik.touched.garantia && formik.errors.garantia}
           </div>
 
-          <div className="mb-3">
+          <div className="">
             <ReactQuill
               theme="snow"
               name="itensInclusos"
@@ -163,7 +163,7 @@ const AddProduto = () => {
             name="marca"
             onChange={formik.handleChange("marca")}
             onBlur={formik.handleBlur("marca")}
-            value={formik.values.brand}
+            value={formik.values.marca}
             className="form-control py-3 mb-3"
             id=""
           >
@@ -188,7 +188,7 @@ const AddProduto = () => {
             className="form-control py-3 mb-3"
             id=""
           >
-            <option value="">Selecione Categoria</option>
+            <option value="">Selecione a Categoria</option>
             {pCatStat.map((i, j) => {
               return (
                 <option key={j} value={i.title}>
@@ -221,25 +221,26 @@ const AddProduto = () => {
           </div>
 
           <select
-            name="aplicacao"
-            onChange={formik.handleChange("aplicacao")}
-            onBlur={formik.handleBlur("aplicacao")}
-            value={formik.values.aplicacao}
-            className="form-control py-3 mb-3"
-            id=""
-          >
-            <option value="">Selecione a aplicação</option>
-            {aplicState.map((i, j) => {
-              return (
-                <option key={j} value={i.title}>
-                  {i.title}
-                </option>
+             name="aplicacao"
+             onChange={formik.handleChange("aplicacao")}
+             onBlur={formik.handleBlur("aplicacao")}
+             value={formik.values.aplicacao}
+             className="form-control py-3 mb-3"
+             id=""
+           >
+             <option value="">Selecione a aplicação</option>
+             {aplicState.map((i, j) => {
+               return (
+                 <option key={j} value={i.title}>
+                   {i.title}
+                 </option>
               );
             })}
           </select>
           <div className="error">
             {formik.touched.aplicacao && formik.errors.aplicacao}
           </div>
+
           <CustomInput
             type="number"
             label="Digite a quantidade de produtos"
@@ -251,7 +252,6 @@ const AddProduto = () => {
           <div className="error">
             {formik.touched.quantidade && formik.errors.quantidade}
           </div>
-
           <div className="bg-white border-1 p-5 text-center">
             <Dropzone
               onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
@@ -284,7 +284,6 @@ const AddProduto = () => {
               );
             })}
           </div>
-
           <button
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"

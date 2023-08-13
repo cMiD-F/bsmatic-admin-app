@@ -5,7 +5,7 @@ export const getCategorias = createAsyncThunk(
   "blogCategoria/get-categorias",
   async (thunkAPI) => {
     try {
-      return await bCategoriaService.getCategoriaBlog();
+      return await bCategoriaService.getBlogCategories();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -15,7 +15,7 @@ export const createNewblogCat = createAsyncThunk(
   "blogCategoria/create-categoria",
   async (catData, thunkAPI) => {
     try {
-      return await bCategoriaService.createBlogCategoria(catData);
+      return await bCategoriaService.createBlogCategory(catData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -26,7 +26,7 @@ export const getABlogCat = createAsyncThunk(
   "blogCategoria/get-categoria",
   async (id, thunkAPI) => {
     try {
-      return await bCategoriaService.getBlogCategoria(id);
+      return await bCategoriaService.getBlogCategory(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -36,7 +36,7 @@ export const updateABlogCat = createAsyncThunk(
   "blogCategoria/update-categoria",
   async (blogCat, thunkAPI) => {
     try {
-      return await bCategoriaService.updateBlogCategoria(blogCat);
+      return await bCategoriaService.updateBlogCategory(blogCat);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -47,7 +47,7 @@ export const deleteABlogCat = createAsyncThunk(
   "blogCategoria/delete-categoria",
   async (id, thunkAPI) => {
     try {
-      return await bCategoriaService.deleteBlogCategoria(id);
+      return await bCategoriaService.deleteBlogCategory(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -60,10 +60,9 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   message: "",
-  createBlogCategoria: null,
 };
 export const pCategoriaSlice = createSlice({
-  name: "bCategorias",
+  name: "bCategories",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -90,7 +89,7 @@ export const pCategoriaSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createBlogCategoria = action.payload;
+        state.createBlogCategory = action.payload;
       })
       .addCase(createNewblogCat.rejected, (state, action) => {
         state.isLoading = false;
@@ -135,7 +134,7 @@ export const pCategoriaSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.deletedBlogCategoria = action.payload;
+        state.deletedBlogCategory = action.payload;
       })
       .addCase(deleteABlogCat.rejected, (state, action) => {
         state.isLoading = false;

@@ -5,18 +5,22 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { createMarca, getAmarca, updateAmarca, resetState } from "../features/marca/marcaSlice";
+import {
+  createMarca,
+  getAMarca,
+  resetState,
+  updateAMarca,
+} from "../features/marca/marcaSlice";
 
 let schema = yup.object().shape({
-  title: yup.string().required("Digitar o nome da marca é obrigatório"),
+  title: yup.string().required("Brand Name is Required"),
 });
-
 const AddMarca = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const getMarcaId = location.pathname.split("/")[3];
-  const newMarca = useSelector((state) => state.marca);
+  const newBrand = useSelector((state) => state.marca);
   const {
     isSuccess,
     isError,
@@ -24,10 +28,10 @@ const AddMarca = () => {
     createdMarca,
     marcaNome,
     updatedMarca,
-  } = newMarca;
+  } = newBrand;
   useEffect(() => {
     if (getMarcaId !== undefined) {
-      dispatch(getAmarca(getMarcaId));
+      dispatch(getAMarca(getMarcaId));
     } else {
       dispatch(resetState());
     }
@@ -35,15 +39,15 @@ const AddMarca = () => {
 
   useEffect(() => {
     if (isSuccess && createdMarca) {
-      toast.success("Marca adicionada com sucesso!");
+      toast.success("Brand Added Successfullly!");
     }
     if (isSuccess && updatedMarca) {
-      toast.success("Marca atualizada com sucesso!");
-      navigate("/admin/lista-marca");
+      toast.success("Brand Updated Successfullly!");
+      navigate("/admin/list-brand");
     }
 
     if (isError) {
-      toast.error("Algo deu errado!");
+      toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
   const formik = useFormik({
@@ -54,8 +58,8 @@ const AddMarca = () => {
     validationSchema: schema,
     onSubmit: (values) => {
       if (getMarcaId !== undefined) {
-        const data = { id: getMarcaId, marcaData: values };
-        dispatch(updateAmarca(data));
+        const data = { id: getMarcaId, brandData: values };
+        dispatch(updateAMarca(data));
         dispatch(resetState());
       } else {
         dispatch(createMarca(values));

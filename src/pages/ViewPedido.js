@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
-import { getOrderByUser } from "../features/auth/authSlice";
+import { getOrderByUser, getPedidos } from "../features/auth/authSlice";
 const columns = [
   {
     title: "SNo",
@@ -52,7 +52,7 @@ const ViewPedido = () => {
   useEffect(() => {
     dispatch(getOrderByUser(userId));
   }, []);
-  
+
   const orderState = useSelector(
     (state) =>
       state.auth.orders &&
@@ -60,8 +60,8 @@ const ViewPedido = () => {
       state.auth.orders[0].produtos
   );
   console.log(orderState)
-  
-  const data1 = [];
+
+const data1 = [];
   if (orderState && orderState.length) {
     for (let i = 0; i < orderState.length; i++) {
       console.log(orderState);
