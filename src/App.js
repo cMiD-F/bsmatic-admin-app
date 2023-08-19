@@ -22,7 +22,7 @@ import AddMarca from "./pages/AddMarca";
 import AddProduto from "./pages/AddProduto";
 import CupomLista from "./pages/CupomLista";
 import AddCupom from "./pages/AddCupom";
-import ViewPerguntas from "./pages/ViewPerguntas";
+import ViewPerg from "./pages/ViewPerguntas";
 import ViewPedido from "./pages/ViewPedido";
 function App() {
   return (
@@ -34,7 +34,7 @@ function App() {
         <Route path="/admin" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="perguntas" element={<Perguntas />} />
-          <Route path="perguntas/:id" element={<ViewPerguntas />} />
+          <Route path="perguntas/:id" element={<ViewPerg />} />
           <Route path="lista-blog" element={<Bloglist />} />
           <Route path="blog" element={<Addblog />} />
           <Route path="blog/:id" element={<Addblog />} />

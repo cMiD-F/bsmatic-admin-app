@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillDelete, AiOutlineEye } from "react-icons/ai";
-import { Table } from "antd";
+
 import { Link } from "react-router-dom";
 import {getPerguntas, deleteAPergunta, resetState, updateAPergunta} from "../features/perguntas/perguntasSlice";
 import CustomModal from "../components/CustomModal";
@@ -75,7 +76,7 @@ const Perguntas = () => {
         </>
       ),
 
-      action: (
+      acao: (
         <>
           <Link
             className="ms-3 fs-3 text-danger"

@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
- getAPergunta,resetState,updateAPergunta,
-} from "../features/perguntas/perguntasSlice";
+import {  getAPergunta,resetState,updateAPergunta } from "../features/perguntas/perguntasSlice";
 import { BiArrowBack } from "react-icons/bi";
 
-const ViewPerguntas = () => {
+const ViewPerg = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -75,10 +73,10 @@ const ViewPerguntas = () => {
               id=""
               onChange={(e) => setEnquiryStatus(e.target.value, getEnqId)}
             >
-              <option value="Submitted">Submitted</option>
-              <option value="Contacted">Contacted</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Resolved">Resolved</option>
+              <option value="Submetido">Submetido</option>
+              <option value="Contatado">Contatado</option>
+              <option value="Em andamento">Em andamento</option>
+              <option value="Resolvido">Resolvido</option>
             </select>
           </div>
         </div>
@@ -87,4 +85,4 @@ const ViewPerguntas = () => {
   );
 };
 
-export default ViewPerguntas;
+export default ViewPerg;
