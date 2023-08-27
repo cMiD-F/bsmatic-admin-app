@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import produtoService from "./produtoService";
 
 export const getProduto = createAsyncThunk(
-  "produto/get-produtos",
+  "produtos/get-produtos",
   async (thunkAPI) => {
     try {
       return await produtoService.getProducts();
@@ -12,7 +12,7 @@ export const getProduto = createAsyncThunk(
   }
 );
 export const createProduto = createAsyncThunk(
-  "produto/create-produtos",
+  "produtos/create-produtos",
   async (produtoData, thunkAPI) => {
     try {
       return await produtoService.createProduct(produtoData);
