@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteABlogCat,
-  getCategories,
+  deleteABrand,
+  getBrands,
   resetState,
-} from "../features/bcategory/bcategorySlice";
+} from "../features/brand/brandSlice";
 import CustomModal from "../components/CustomModal";
 
 const columns = [
@@ -21,19 +21,18 @@ const columns = [
     dataIndex: "name",
     sorter: (a, b) => a.name.length - b.name.length,
   },
-
   {
     title: "Ação",
     dataIndex: "action",
   },
 ];
 
-const Blogcatlist = () => {
+const Brandlist = () => {
   const [open, setOpen] = useState(false);
-  const [blogCatId, setblogCatId] = useState("");
+  const [brandId, setbrandId] = useState("");
   const showModal = (e) => {
     setOpen(true);
-    setblogCatId(e);
+    setbrandId(e);
   };
 
   const hideModal = () => {
@@ -42,26 +41,25 @@ const Blogcatlist = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(resetState());
-    dispatch(getCategories());
+    dispatch(getBrands());
   }, []);
-  const bCatState = useSelector((state) => state.bCategory.bCategories);
-  console.log(bCatState);
+  const brandState = useSelector((state) => state.brand.brands);
   const data1 = [];
-  for (let i = 0; i < bCatState.length; i++) {
+  for (let i = 0; i < brandState.length; i++) {
     data1.push({
       key: i + 1,
-      name: bCatState[i].title,
+      name: brandState[i].title,
       action: (
         <>
           <Link
-            to={`/admin/blog-category/${bCatState[i]._id}`}
+            to={`/admin/brand/${brandState[i]._id}`}
             className=" fs-3 text-danger"
           >
             <BiEdit />
           </Link>
           <button
             className="ms-3 fs-3 text-danger bg-transparent border-0"
-            onClick={() => showModal(bCatState[i]._id)}
+            onClick={() => showModal(brandState[i]._id)}
           >
             <AiFillDelete />
           </button>
@@ -69,16 +67,17 @@ const Blogcatlist = () => {
       ),
     });
   }
-  const deleteBlogCategory = (e) => {
-    dispatch(deleteABlogCat(e));
+  const deleteBrand = (e) => {
+    dispatch(deleteABrand(e));
+
     setOpen(false);
     setTimeout(() => {
-      dispatch(getCategories());
+      dispatch(getBrands());
     }, 100);
   };
   return (
     <div>
-      <h3 className="mb-4 title">Categorias de blogs</h3>
+      <h3 className="mb-4 title">Marcas</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -86,12 +85,12 @@ const Blogcatlist = () => {
         hideModal={hideModal}
         open={open}
         performAction={() => {
-          deleteBlogCategory(blogCatId);
+          deleteBrand(brandId);
         }}
-        title="Tem certeza de que deseja excluir esta categoria do blog?"
+        title="Tem certeza de que deseja excluir esta marca?"
       />
     </div>
   );
 };
 
-export default Blogcatlist;
+export default Brandlist;

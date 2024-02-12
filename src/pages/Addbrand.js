@@ -6,43 +6,46 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
-  createNewblogCat,
-  getABlogCat,
+  createBrand,
+  getABrand,
   resetState,
-  updateABlogCat,
-} from "../features/bcategory/bcategorySlice";
+  updateABrand,
+} from "../features/brand/brandSlice";
+
 let schema = yup.object().shape({
-  title: yup.string().required("Category Name is Required"),
+  title: yup.string().required("O nome da marca é obrigatório"),
 });
-const Addblogcat = () => {
+const Addbrand = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
-  const getBlogCatId = location.pathname.split("/")[3];
-  const newBlogCategory = useSelector((state) => state.bCategory);
+  const navigate = useNavigate();
+  const getBrandId = location.pathname.split("/")[3];
+  const newBrand = useSelector((state) => state.brand);
   const {
     isSuccess,
     isError,
     isLoading,
-    createBlogCategory,
-    blogCatName,
-    updatedBlogCategory,
-  } = newBlogCategory;
+    createdBrand,
+    brandName,
+    updatedBrand,
+  } = newBrand;
   useEffect(() => {
-    if (getBlogCatId !== undefined) {
-      dispatch(getABlogCat(getBlogCatId));
+    if (getBrandId !== undefined) {
+      dispatch(getABrand(getBrandId));
     } else {
       dispatch(resetState());
     }
-  }, [getBlogCatId]);
+  }, [getBrandId]);
+
   useEffect(() => {
-    if (isSuccess && createBlogCategory) {
-      toast.success("Categoria do blog adicionada com sucesso!");
+    if (isSuccess && createdBrand) {
+      toast.success("Marca adicionada com sucesso!");
     }
-    if (isSuccess && updatedBlogCategory) {
-      toast.success("Categoria do blog atualizada com sucesso!");
-      navigate("/admin/blog-category-list");
+    if (isSuccess && updatedBrand) {
+      toast.success("Marca atualizada com sucesso!");
+      navigate("/admin/list-brand");
     }
+
     if (isError) {
       toast.error("Algo deu errado!");
     }
@@ -50,16 +53,16 @@ const Addblogcat = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      title: blogCatName || "",
+      title: brandName || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      const data = { id: getBlogCatId, blogCatData: values };
-      if (getBlogCatId !== undefined) {
-        dispatch(updateABlogCat(data));
+      if (getBrandId !== undefined) {
+        const data = { id: getBrandId, brandData: values };
+        dispatch(updateABrand(data));
         dispatch(resetState());
       } else {
-        dispatch(createNewblogCat(values));
+        dispatch(createBrand(values));
         formik.resetForm();
         setTimeout(() => {
           dispatch(resetState());
@@ -67,10 +70,11 @@ const Addblogcat = () => {
       }
     },
   });
+
   return (
     <div>
-      <h3 className="mb-4  title">
-        {getBlogCatId !== undefined ? "Edit" : "Add"} Blog Category
+      <h3 className="mb-4 title">
+        {getBrandId !== undefined ? "Edit" : "Add"} Marca
       </h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
@@ -80,8 +84,8 @@ const Addblogcat = () => {
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
-            label="Insira a categoria do blog"
-            id="blogcat"
+            label="Enter Brand"
+            id="brand"
           />
           <div className="error">
             {formik.touched.title && formik.errors.title}
@@ -90,7 +94,7 @@ const Addblogcat = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            {getBlogCatId !== undefined ? "Edit" : "Add"} Blog Categoria
+            {getBrandId !== undefined ? "Edit" : "Add"} Marca
           </button>
         </form>
       </div>
@@ -98,4 +102,4 @@ const Addblogcat = () => {
   );
 };
 
-export default Addblogcat;
+export default Addbrand;

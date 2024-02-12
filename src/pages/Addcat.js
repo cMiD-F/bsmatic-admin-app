@@ -6,42 +6,42 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
-  createNewblogCat,
-  getABlogCat,
+  createCategory,
+  getAProductCategory,
   resetState,
-  updateABlogCat,
-} from "../features/bcategory/bcategorySlice";
+  updateAProductCategory,
+} from "../features/pcategory/pcategorySlice";
 let schema = yup.object().shape({
-  title: yup.string().required("Category Name is Required"),
+  title: yup.string().required("O nome da categoria é obrigatório"),
 });
-const Addblogcat = () => {
+const Addcat = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
-  const getBlogCatId = location.pathname.split("/")[3];
-  const newBlogCategory = useSelector((state) => state.bCategory);
+  const getPCatId = location.pathname.split("/")[3];
+  const navigate = useNavigate();
+  const newCategory = useSelector((state) => state.pCategory);
   const {
     isSuccess,
     isError,
     isLoading,
-    createBlogCategory,
-    blogCatName,
-    updatedBlogCategory,
-  } = newBlogCategory;
+    createdCategory,
+    categoryName,
+    updatedCategory,
+  } = newCategory;
   useEffect(() => {
-    if (getBlogCatId !== undefined) {
-      dispatch(getABlogCat(getBlogCatId));
+    if (getPCatId !== undefined) {
+      dispatch(getAProductCategory(getPCatId));
     } else {
       dispatch(resetState());
     }
-  }, [getBlogCatId]);
+  }, [getPCatId]);
   useEffect(() => {
-    if (isSuccess && createBlogCategory) {
-      toast.success("Categoria do blog adicionada com sucesso!");
+    if (isSuccess && createdCategory) {
+      toast.success("Categoria adicionada com sucesso!");
     }
-    if (isSuccess && updatedBlogCategory) {
-      toast.success("Categoria do blog atualizada com sucesso!");
-      navigate("/admin/blog-category-list");
+    if (isSuccess && updatedCategory) {
+      toast.success("Categoria atualizada com sucesso!");
+      navigate("/admin/list-category");
     }
     if (isError) {
       toast.error("Algo deu errado!");
@@ -50,16 +50,16 @@ const Addblogcat = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      title: blogCatName || "",
+      title: categoryName || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      const data = { id: getBlogCatId, blogCatData: values };
-      if (getBlogCatId !== undefined) {
-        dispatch(updateABlogCat(data));
+      if (getPCatId !== undefined) {
+        const data = { id: getPCatId, pCatData: values };
+        dispatch(updateAProductCategory(data));
         dispatch(resetState());
       } else {
-        dispatch(createNewblogCat(values));
+        dispatch(createCategory(values));
         formik.resetForm();
         setTimeout(() => {
           dispatch(resetState());
@@ -70,18 +70,17 @@ const Addblogcat = () => {
   return (
     <div>
       <h3 className="mb-4  title">
-        {getBlogCatId !== undefined ? "Edit" : "Add"} Blog Category
+        {getPCatId !== undefined ? "Edit" : "Add"} Categoria
       </h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
-            name="title"
+            label="Insira a categoria do produto"
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
-            label="Insira a categoria do blog"
-            id="blogcat"
+            id="brand"
           />
           <div className="error">
             {formik.touched.title && formik.errors.title}
@@ -90,7 +89,7 @@ const Addblogcat = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            {getBlogCatId !== undefined ? "Edit" : "Add"} Blog Categoria
+            {getPCatId !== undefined ? "Edit" : "Add"} Categoria
           </button>
         </form>
       </div>
@@ -98,4 +97,4 @@ const Addblogcat = () => {
   );
 };
 
-export default Addblogcat;
+export default Addcat;

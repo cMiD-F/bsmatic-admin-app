@@ -2,62 +2,78 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-import RedefinirSenha from "./pages/RedefinirSenha";
-import EsqueceuSenha from "./pages/EsqueceuSenha";
+
 import MainLayout from "./components/MainLayout";
-import Perguntas from "./pages/Perguntas";
+import Enquiries from "./pages/Enquiries";
 import Bloglist from "./pages/Bloglist";
 import Blogcatlist from "./pages/Blogcatlist";
-import Pedidos from "./pages/Pedidos";
-import Usuarios from "./pages/Usuarios";
-import AplicacaoLista from "./pages/AplicacaoLista";
-import CategoriaLista from "./pages/CategoriaLista";
-import MarcasLista from "./pages/MarcasLista";
-import ProdutosLista from "./pages/ProdutosLista";
-import Addblog from "./pages/AddBlog";
-import Addblogcat from "./pages/AddBlogCat";
-import AddAplicacao from "./pages/AddAplicacao";
-import AddCategoria from "./pages/AddCategoria";
-import AddMarca from "./pages/AddMarca";
-import AddProduto from "./pages/AddProduto";
-import CupomLista from "./pages/CupomLista";
-import AddCupom from "./pages/AddCupom";
-import ViewPerg from "./pages/ViewPerguntas";
-import ViewPedido from "./pages/ViewPedido";
+import Orders from "./pages/Orders";
+import Customers from "./pages/Customers";
+import Applicationlist from "./pages/Applicationlist";
+import Categorylist from "./pages/Categorylist";
+import Brandlist from "./pages/Brandlist";
+import Productlist from "./pages/Productlist";
+import Addblog from "./pages/Addblog";
+import Addblogcat from "./pages/Addblogcat";
+import Addapplication from "./pages/Addapplication";
+import Addcat from "./pages/Addcat";
+import Addbrand from "./pages/Addbrand";
+import Addproduct from "./pages/Addproduct";
+import Couponlist from "./pages/Couponlist";
+import AddCoupon from "./pages/AddCoupon";
+import ViewEnq from "./pages/ViewEnq";
+import ViewOrder from "./pages/ViewOrder";
+import { OpenRoutes } from "./routing/OpenRoutes";
+import { PrivateRoutes } from "./routing/PrivateRoutes";
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/redefinir-senha" element={<RedefinirSenha />} />
-        <Route path="/esqueceu-senha" element={<EsqueceuSenha />} />
-        <Route path="/admin" element={<MainLayout />}>
+        <Route
+          path="/"
+          element={
+            <OpenRoutes>
+              <Login />
+            </OpenRoutes>
+          }
+        />
+        {/* <Route path="/reset-password" element={<Resetpassword />} />
+        <Route path="/forgot-password" element={<Forgotpassword />} /> */}
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoutes>
+              <MainLayout />
+            </PrivateRoutes>
+          }
+        >
           <Route index element={<Dashboard />} />
-          <Route path="perguntas" element={<Perguntas />} />
-          <Route path="perguntas/:id" element={<ViewPerg />} />
-          <Route path="lista-blog" element={<Bloglist />} />
+          <Route path="enquiries" element={<Enquiries />} />
+          <Route path="enquiries/:id" element={<ViewEnq />} />
+          <Route path="blog-list" element={<Bloglist />} />
           <Route path="blog" element={<Addblog />} />
           <Route path="blog/:id" element={<Addblog />} />
-          <Route path="lista-cupom" element={<CupomLista />} />
-          <Route path="cupom" element={<AddCupom />} />
-          <Route path="cupom/:id" element={<AddCupom />} />
-          <Route path="lista-blog-categoria" element={<Blogcatlist />} />
-          <Route path="blog-categoria" element={<Addblogcat />} />
-          <Route path="blog-categoria/:id" element={<Addblogcat />} />
-          <Route path="pedido" element={<Pedidos />} />
-          <Route path="pedido/:id" element={<ViewPedido />} />
-          <Route path="usuarios" element={<Usuarios />} />
-          <Route path="aplicacao" element={<AddAplicacao />} />
-          <Route path="aplicacao/:id" element={<AddAplicacao />} />
-          <Route path="lista-aplicacao" element={<AplicacaoLista />} />
-          <Route path="lista-categoria" element={<CategoriaLista />} />
-          <Route path="categoria" element={<AddCategoria />} />
-          <Route path="categoria/:id" element={<AddCategoria />} />
-          <Route path="lista-marca" element={<MarcasLista />} />
-          <Route path="marca" element={<AddMarca />} />
-          <Route path="marca/:id" element={<AddMarca />} />
-          <Route path="produto-lista" element={<ProdutosLista />} />
-          <Route path="produto" element={<AddProduto />} />
+          <Route path="coupon-list" element={<Couponlist />} />
+          <Route path="coupon" element={<AddCoupon />} />
+          <Route path="coupon/:id" element={<AddCoupon />} />
+          <Route path="blog-category-list" element={<Blogcatlist />} />
+          <Route path="blog-category" element={<Addblogcat />} />
+          <Route path="blog-category/:id" element={<Addblogcat />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="order/:id" element={<ViewOrder />} />
+          <Route path="customers" element={<Customers />} />
+          <Route path="list-application" element={<Applicationlist />} />
+          <Route path="application" element={<Addapplication />} />
+          <Route path="application/:id" element={<Addapplication />} />
+          <Route path="list-category" element={<Categorylist />} />
+          <Route path="category" element={<Addcat />} />
+          <Route path="category/:id" element={<Addcat />} />
+          <Route path="list-brand" element={<Brandlist />} />
+          <Route path="brand" element={<Addbrand />} />
+          <Route path="brand/:id" element={<Addbrand />} />
+          <Route path="list-product" element={<Productlist />} />
+          <Route path="product" element={<Addproduct />} />
+          <Route path="product/:id" element={<Addproduct />} />
         </Route>
       </Routes>
     </Router>

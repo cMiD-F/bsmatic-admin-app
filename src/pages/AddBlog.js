@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect } from "react";
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -15,32 +15,34 @@ import {
   resetState,
   updateABlog,
 } from "../features/blogs/blogSlice";
-import { getCategorias } from "../features/bcategoria/bcategoriaSlice";
+import { getCategories } from "../features/bcategory/bcategorySlice";
 
 let schema = yup.object().shape({
-  title: yup.string().required("Título é obrigatório"),
-  descricao: yup.string().required("A descrição é obrigatória"),
-  categoria: yup.string().required("A categoria é obrigatória"),
+  title: yup.string().required("O título é obrigatório"),
+  description: yup.string().required("A descrição é obrigatória"),
+  category: yup.string().required("A categoria é obrigatória"),
 });
 const Addblog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const getBlogId = location.pathname.split("/")[3];
-  const imgState = useSelector((state) => state.upload.images);
-  const bCatState = useSelector((state) => state.bCategoria.bCategorias);
+  const imgState = useSelector((state) => state?.upload?.images);
+  const bCatState = useSelector((state) => state.bCategory.bCategories);
   const blogState = useSelector((state) => state.blogs);
+
   const {
     isSuccess,
     isError,
     isLoading,
     createdBlog,
-    blogNome,
+    blogName,
     blogDesc,
-    blogCategoria,
+    blogCategory,
     blogImages,
     updatedBlog,
   } = blogState;
+  //console.log(blogImages?.[0].url);
   useEffect(() => {
     if (getBlogId !== undefined) {
       dispatch(getABlog(getBlogId));
@@ -52,7 +54,7 @@ const Addblog = () => {
 
   useEffect(() => {
     dispatch(resetState());
-    dispatch(getCategorias());
+    dispatch(getCategories());
   }, []);
 
   useEffect(() => {
@@ -61,7 +63,7 @@ const Addblog = () => {
     }
     if (isSuccess && updatedBlog) {
       toast.success("Blog atualizado com sucesso!");
-      navigate("/admin/lista-blog");
+      navigate("/admin/blog-list");
     }
     if (isError) {
       toast.error("Algo deu errado!");
@@ -69,7 +71,7 @@ const Addblog = () => {
   }, [isSuccess, isError, isLoading]);
 
   const img = [];
-  imgState.forEach((i) => {
+  blogImages?.forEach((i) => {
     img.push({
       public_id: i.public_id,
       url: i.url,
@@ -78,15 +80,15 @@ const Addblog = () => {
   console.log(img);
   useEffect(() => {
     formik.values.images = img;
-  }, [blogImages]);
+  }, [img]);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      title: blogNome || "",
-      descricao: blogDesc || "",
-      categoria: blogCategoria || "",
-      images: "",
+      title: blogName || "",
+      description: blogDesc || "",
+      category: blogCategory || "",
+      images: img || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -117,7 +119,7 @@ const Addblog = () => {
               type="text"
               label="Digite o título do blog"
               name="title"
-              onChng={formik.handleChange("title")}
+              onChange={formik.handleChange("title")}
               onBlr={formik.handleBlur("title")}
               val={formik.values.title}
             />
@@ -126,10 +128,10 @@ const Addblog = () => {
             {formik.touched.title && formik.errors.title}
           </div>
           <select
-            name="categoria"
-            onChange={formik.handleChange("categoria")}
-            onBlur={formik.handleBlur("categoria")}
-            value={formik.values.categoria}
+            name="category"
+            onChange={formik.handleChange("category")}
+            onBlur={formik.handleBlur("category")}
+            value={formik.values.category}
             className="form-control py-3  mt-3"
             id=""
           >
@@ -143,17 +145,17 @@ const Addblog = () => {
             })}
           </select>
           <div className="error">
-            {formik.touched.categoria && formik.errors.categoria}
+            {formik.touched.category && formik.errors.category}
           </div>
           <ReactQuill
             theme="snow"
             className="mt-3"
-            name="descricao"
-            onChange={formik.handleChange("descricao")}
-            value={formik.values.descricao}
+            name="description"
+            onChange={formik.handleChange("description")}
+            value={formik.values.description}
           />
           <div className="error">
-            {formik.touched.descricao && formik.errors.descricao}
+            {formik.touched.description && formik.errors.description}
           </div>
           <div className="bg-white border-1 p-5 text-center mt-3">
             <Dropzone
@@ -164,7 +166,7 @@ const Addblog = () => {
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     <p>
-                    Arraste e solte alguns arquivos aqui ou clique para selecionar os arquivos
+                    Arraste e solte alguns arquivos aqui ou clique para selecionar os arquivos..
                     </p>
                   </div>
                 </section>
@@ -172,7 +174,7 @@ const Addblog = () => {
             </Dropzone>
           </div>
           <div className="showimages d-flex flex-wrap mt-3 gap-3">
-            {imgState?.map((i, j) => {
+            {img?.map((i, j) => {
               return (
                 <div className=" position-relative" key={j}>
                   <button
@@ -191,7 +193,7 @@ const Addblog = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            {getBlogId !== undefined ? "Edit" : "Adicionar"} Blog
+            {getBlogId !== undefined ? "Edit" : "Add"} Blog
           </button>
         </form>
       </div>

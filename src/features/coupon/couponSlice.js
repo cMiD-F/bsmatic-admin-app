@@ -1,50 +1,51 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import blogService from "./blogService";
+import couponService from "./couponService";
 
-export const getBlogs = createAsyncThunk("blog/get-blogs", async (thunkAPI) => {
-  try {
-    return await blogService.getBlogs();
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
-  }
-});
-export const createBlogs = createAsyncThunk(
-  "blog/create-blogs",
-  async (blogData, thunkAPI) => {
+export const getAllCoupon = createAsyncThunk(
+  "coupon/get-coupons",
+  async (thunkAPI) => {
     try {
-      return await blogService.createBlog(blogData);
+      return await couponService.getCoupons();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
-export const getABlog = createAsyncThunk(
-  "blog/get-blog",
+export const createCoupon = createAsyncThunk(
+  "coupon/create-coupon",
+  async (couponData, thunkAPI) => {
+    try {
+      return await couponService.createCoupons(couponData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const deleteACoupon = createAsyncThunk(
+  "coupon/delete-coupon",
   async (id, thunkAPI) => {
     try {
-      return await blogService.getBlog(id);
+      return await couponService.deleteCoupon(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-export const updateABlog = createAsyncThunk(
-  "blog/update-blog",
-  async (brand, thunkAPI) => {
-    try {
-      return await blogService.updateBlog(brand);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-export const deleteABlog = createAsyncThunk(
-  "blog/delete-blog",
+export const getACoupon = createAsyncThunk(
+  "coupon/get-coupon",
   async (id, thunkAPI) => {
     try {
-      return await blogService.deleteBlog(id);
+      return await couponService.getCoupon(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const updateACoupon = createAsyncThunk(
+  "coupon/update-coupon",
+  async (coupon, thunkAPI) => {
+    try {
+      return await couponService.updateCoupon(coupon);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -53,90 +54,90 @@ export const deleteABlog = createAsyncThunk(
 export const resetState = createAction("Reset_all");
 
 const initialState = {
-  blogs: [],
+  coupons: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
   message: "",
 };
-export const blogSlice = createSlice({
-  name: "blogs",
+export const couponSlice = createSlice({
+  name: "coupons",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getBlogs.pending, (state) => {
+      .addCase(getAllCoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getBlogs.fulfilled, (state, action) => {
+      .addCase(getAllCoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.blogs = action.payload;
+        state.coupons = action.payload;
       })
-      .addCase(getBlogs.rejected, (state, action) => {
+      .addCase(getAllCoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(createBlogs.pending, (state) => {
+      .addCase(createCoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createBlogs.fulfilled, (state, action) => {
+      .addCase(createCoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createdBlog = action.payload;
+        state.createdCoupon = action.payload;
       })
-      .addCase(createBlogs.rejected, (state, action) => {
+      .addCase(createCoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(getABlog.pending, (state) => {
+      .addCase(deleteACoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getABlog.fulfilled, (state, action) => {
+      .addCase(deleteACoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.blogName = action.payload.title;
-        state.blogDesc = action.payload.description;
-        state.blogCategory = action.payload.category;
-        state.blogImages = action.payload.images;
+        state.deletedCoupon = action.payload;
       })
-      .addCase(getABlog.rejected, (state, action) => {
+      .addCase(deleteACoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(updateABlog.pending, (state) => {
+      .addCase(getACoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateABlog.fulfilled, (state, action) => {
+      .addCase(getACoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
+        state.couponName = action.payload.name;
+        state.couponExpiry = action.payload.expiry;
+        state.couponDiscount = action.payload.discount;
       })
-      .addCase(updateABlog.rejected, (state, action) => {
+      .addCase(getACoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(deleteABlog.pending, (state) => {
+      .addCase(updateACoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteABlog.fulfilled, (state, action) => {
+      .addCase(updateACoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.deletedBlog = action.payload;
+        state.updatedCoupon = action.payload;
       })
-      .addCase(deleteABlog.rejected, (state, action) => {
+      .addCase(updateACoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
@@ -145,4 +146,5 @@ export const blogSlice = createSlice({
       .addCase(resetState, () => initialState);
   },
 });
-export default blogSlice.reducer;
+
+export default couponSlice.reducer;

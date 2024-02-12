@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteAApplication, getApplications } from "../features/application/applicationSlice";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  deleteABlogCat,
-  getCategories,
-  resetState,
-} from "../features/bcategory/bcategorySlice";
 import CustomModal from "../components/CustomModal";
 
 const columns = [
@@ -18,22 +14,21 @@ const columns = [
   },
   {
     title: "Nome",
-    dataIndex: "name",
-    sorter: (a, b) => a.name.length - b.name.length,
+    dataIndex: "title",
+    sorter: (a, b) => a.title.length - b.title.length,
   },
-
   {
     title: "Ação",
     dataIndex: "action",
   },
 ];
 
-const Blogcatlist = () => {
+const Applicationlist = () => {
   const [open, setOpen] = useState(false);
-  const [blogCatId, setblogCatId] = useState("");
+  const [applicationId, setapplicationId] = useState("");
   const showModal = (e) => {
     setOpen(true);
-    setblogCatId(e);
+    setapplicationId(e);
   };
 
   const hideModal = () => {
@@ -41,27 +36,26 @@ const Blogcatlist = () => {
   };
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(resetState());
-    dispatch(getCategories());
+    dispatch(getApplications());
   }, []);
-  const bCatState = useSelector((state) => state.bCategory.bCategories);
-  console.log(bCatState);
+
+  const applicationState = useSelector((state) => state.application.applications);
   const data1 = [];
-  for (let i = 0; i < bCatState.length; i++) {
+  for (let i = 0; i < applicationState.length; i++) {
     data1.push({
       key: i + 1,
-      name: bCatState[i].title,
+      title: applicationState[i].title,
       action: (
         <>
           <Link
-            to={`/admin/blog-category/${bCatState[i]._id}`}
+            to={`/admin/application/${applicationState[i]._id}`}
             className=" fs-3 text-danger"
           >
             <BiEdit />
           </Link>
           <button
             className="ms-3 fs-3 text-danger bg-transparent border-0"
-            onClick={() => showModal(bCatState[i]._id)}
+            onClick={() => showModal(applicationState[i]._id)}
           >
             <AiFillDelete />
           </button>
@@ -69,16 +63,16 @@ const Blogcatlist = () => {
       ),
     });
   }
-  const deleteBlogCategory = (e) => {
-    dispatch(deleteABlogCat(e));
+  const deleteApplicationLocal = (e) => {
+    dispatch(deleteAApplication(e));
     setOpen(false);
     setTimeout(() => {
-      dispatch(getCategories());
+      dispatch(getApplications());
     }, 100);
   };
   return (
     <div>
-      <h3 className="mb-4 title">Categorias de blogs</h3>
+      <h3 className="mb-4 title">Aplicação</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -86,12 +80,12 @@ const Blogcatlist = () => {
         hideModal={hideModal}
         open={open}
         performAction={() => {
-          deleteBlogCategory(blogCatId);
+          deleteApplicationLocal(applicationId);
         }}
-        title="Tem certeza de que deseja excluir esta categoria do blog?"
+        title="Tem certeza de que deseja excluir esta aplicação?"
       />
     </div>
   );
 };
 
-export default Blogcatlist;
+export default Applicationlist;

@@ -1,28 +1,27 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
-import usuarioReducer from "../features/usuario/usuarioSlice";
-import produtoReducer from "../features/produto/produtoSlice";
-import marcaReducer from "../features/marca/marcaSlice";
-import pCategoriaReducer from "../features/pcategoria/pcategoriaSlice";
-import bCategoryReducer from "../features/bcategoria/bcategoriaSlice";
+import customerReducer from "../features/cutomers/customerSlice";
+import productReducer from "../features/product/productSlice";
+import brandReducer from "../features/brand/brandSlice";
+import pCategoryReducer from "../features/pcategory/pcategorySlice";
+import bCategoryReducer from "../features/bcategory/bcategorySlice";
 import blogReducer from "../features/blogs/blogSlice";
-import aplicacaoReducer from "../features/aplicacao/aplicacaoSlice";
-import perguntaReducer from "../features/perguntas/perguntasSlice";
+import applicationReducer from "../features/application/applicationSlice";
+import enquiryReducer from "../features/enquiry/enquirySlice";
 import uploadReducer from "../features/upload/uploadSlice";
-import cupomReducer from "../features/cupom/cupomSlice";
-
+import couponReducer from "../features/coupon/couponSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    usuarios: usuarioReducer,
-    produto: produtoReducer,
-    marca: marcaReducer,
-    pCategoria: pCategoriaReducer,
-    bCategoria: bCategoryReducer,
+    customer: customerReducer,
+    product: productReducer,
+    brand: brandReducer,
+    pCategory: pCategoryReducer,
+    bCategory: bCategoryReducer,
     blogs: blogReducer,
-    aplicacao: aplicacaoReducer,
-    pergunta: perguntaReducer,
+    application: applicationReducer,
+    enquiry: enquiryReducer,
     upload: uploadReducer,
-    cupom: cupomReducer,
+    coupon: couponReducer,
   },
 });

@@ -6,27 +6,28 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteABlog, getBlogs, resetState } from "../features/blogs/blogSlice";
 import CustomModal from "../components/CustomModal";
+import { delImg } from "../features/upload/uploadSlice";
 
 const columns = [
   {
-    title: "SNo",
+    title: "Nº",
     dataIndex: "key",
   },
   {
-    title: "Title",
+    title: "Titulo",
     dataIndex: "name",
   },
   {
-    title: "Category",
+    title: "Categoria",
     dataIndex: "category",
   },
   {
-    title: "Action",
+    title: "Ação",
     dataIndex: "action",
   },
 ];
 
-const BlogLista = () => {
+const Bloglist = () => {
   const [open, setOpen] = useState(false);
   const [blogId, setblogId] = useState("");
   const showModal = (e) => {
@@ -70,6 +71,7 @@ const BlogLista = () => {
   }
   const deleteBlog = (e) => {
     dispatch(deleteABlog(e));
+    dispatch(delImg(e));
 
     setOpen(false);
     setTimeout(() => {
@@ -78,7 +80,7 @@ const BlogLista = () => {
   };
   return (
     <div>
-      <h3 className="mb-4 title">Blogs List</h3>
+      <h3 className="mb-4 title">Lista de blogs</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -88,10 +90,10 @@ const BlogLista = () => {
         performAction={() => {
           deleteBlog(blogId);
         }}
-        title="Are you sure you want to delete this blog?"
+        title="Tem certeza de que deseja excluir este blog?"
       />
     </div>
   );
 };
 
-export default BlogLista;
+export default Bloglist;

@@ -1,142 +1,142 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import blogService from "./blogService";
+import bCategoryService from "./bcategoryService";
 
-export const getBlogs = createAsyncThunk("blog/get-blogs", async (thunkAPI) => {
-  try {
-    return await blogService.getBlogs();
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
-  }
-});
-export const createBlogs = createAsyncThunk(
-  "blog/create-blogs",
-  async (blogData, thunkAPI) => {
+export const getCategories = createAsyncThunk(
+  "blogCategory/get-categories",
+  async (thunkAPI) => {
     try {
-      return await blogService.createBlog(blogData);
+      return await bCategoryService.getBlogCategories();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const createNewblogCat = createAsyncThunk(
+  "blogCategory/create-category",
+  async (catData, thunkAPI) => {
+    try {
+      return await bCategoryService.createBlogCategory(catData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const getABlog = createAsyncThunk(
-  "blog/get-blog",
+export const getABlogCat = createAsyncThunk(
+  "blogCategory/get-category",
   async (id, thunkAPI) => {
     try {
-      return await blogService.getBlog(id);
+      return await bCategoryService.getBlogCategory(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-export const updateABlog = createAsyncThunk(
-  "blog/update-blog",
-  async (brand, thunkAPI) => {
+export const updateABlogCat = createAsyncThunk(
+  "blogCategory/update-category",
+  async (blogCat, thunkAPI) => {
     try {
-      return await blogService.updateBlog(brand);
+      return await bCategoryService.updateBlogCategory(blogCat);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const deleteABlog = createAsyncThunk(
-  "blog/delete-blog",
+export const deleteABlogCat = createAsyncThunk(
+  "blogCategory/delete-category",
   async (id, thunkAPI) => {
     try {
-      return await blogService.deleteBlog(id);
+      return await bCategoryService.deleteBlogCategory(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 export const resetState = createAction("Reset_all");
-
 const initialState = {
-  blogs: [],
+  bCategories: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
   message: "",
 };
-export const blogSlice = createSlice({
-  name: "blogs",
+export const pCategorySlice = createSlice({
+  name: "bCategories",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getBlogs.pending, (state) => {
+      .addCase(getCategories.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getBlogs.fulfilled, (state, action) => {
+      .addCase(getCategories.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.blogs = action.payload;
+        state.bCategories = action.payload;
       })
-      .addCase(getBlogs.rejected, (state, action) => {
+      .addCase(getCategories.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(createBlogs.pending, (state) => {
+      .addCase(createNewblogCat.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createBlogs.fulfilled, (state, action) => {
+      .addCase(createNewblogCat.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createdBlog = action.payload;
+        state.createBlogCategory = action.payload;
       })
-      .addCase(createBlogs.rejected, (state, action) => {
+      .addCase(createNewblogCat.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(getABlog.pending, (state) => {
+      .addCase(getABlogCat.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getABlog.fulfilled, (state, action) => {
+      .addCase(getABlogCat.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.blogName = action.payload.title;
-        state.blogDesc = action.payload.description;
-        state.blogCategory = action.payload.category;
-        state.blogImages = action.payload.images;
+        state.blogCatName = action.payload.title;
       })
-      .addCase(getABlog.rejected, (state, action) => {
+      .addCase(getABlogCat.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(updateABlog.pending, (state) => {
+      .addCase(updateABlogCat.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateABlog.fulfilled, (state, action) => {
+      .addCase(updateABlogCat.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
+        state.updatedBlogCategory = action.payload;
       })
-      .addCase(updateABlog.rejected, (state, action) => {
+      .addCase(updateABlogCat.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(deleteABlog.pending, (state) => {
+      .addCase(deleteABlogCat.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteABlog.fulfilled, (state, action) => {
+      .addCase(deleteABlogCat.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.deletedBlog = action.payload;
+        state.deletedBlogCategory = action.payload;
       })
-      .addCase(deleteABlog.rejected, (state, action) => {
+      .addCase(deleteABlogCat.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
@@ -145,4 +145,4 @@ export const blogSlice = createSlice({
       .addCase(resetState, () => initialState);
   },
 });
-export default blogSlice.reducer;
+export default pCategorySlice.reducer;

@@ -10,31 +10,29 @@ let schema = yup.object().shape({
   email: yup
     .string()
     .email("O e-mail deve ser válido")
-    .required("Email é obrigatório"),
-  senha: yup.string().required("Senha requerida"),
+    .required("E-mail é obrigatório"),
+  password: yup.string().required("Senha requerida"),
 });
-
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
-      senha: "",
+      password: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
       dispatch(login(values));
     },
   });
-
   const authState = useSelector((state) => state);
 
   const { user, isError, isSuccess, isLoading, message } = authState.auth;
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("admin");
+      window.location.href = "/admin";
     } else {
       navigate("");
     }
@@ -48,14 +46,14 @@ const Login = () => {
       <br />
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
         <h3 className="text-center title">Login</h3>
-        <p className="text-center">Entre na sua conta para continuar.</p>
+        <p className="text-center">Faça login em sua conta para continuar.</p>
         <div className="error text-center">
-          {message.message == "Negado" ? "Você não é um Administrador" : ""}
+          {message.message == "Rejected" ? "Você não é um administrador" : ""}
         </div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
-            label="Email "
+            label="Endereço de email"
             id="email"
             name="email"
             onChng={formik.handleChange("email")}
@@ -67,25 +65,21 @@ const Login = () => {
           </div>
           <CustomInput
             type="password"
-            name="senha"
             label="Senha"
-            id="senha"
-            onChng={formik.handleChange("senha")}
-            onBlr={formik.handleBlur("senha")}
-            val={formik.values.senha}
+            id="pass"
+            name="password"
+            onChng={formik.handleChange("password")}
+            onBlr={formik.handleBlur("password")}
+            val={formik.values.password}
           />
           <div className="error mt-2">
             {formik.touched.password && formik.errors.password}
           </div>
-          <div className="mb-3 text-end">
-            <Link to="/esqueceu-senha" className="">
-            Esqueceu sua senha ?
-            </Link>
-          </div>
+          <div className="mb-3 text-end"></div>
           <button
             className="border-0 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5"
             style={{ background: "#ffd333" }}
-            type="Enviar"
+            type="submit"
           >
             Login
           </button>

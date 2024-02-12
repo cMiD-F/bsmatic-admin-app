@@ -6,60 +6,60 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
-  createNewblogCat,
-  getABlogCat,
+  createApplication,
+  getAApplication,
   resetState,
-  updateABlogCat,
-} from "../features/bcategory/bcategorySlice";
+  updateAApplication,
+} from "../features/application/applicationSlice";
 let schema = yup.object().shape({
-  title: yup.string().required("Category Name is Required"),
+  title: yup.string().required("A aplicação é obrigatória"),
 });
-const Addblogcat = () => {
+const Addapplication = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const getBlogCatId = location.pathname.split("/")[3];
-  const newBlogCategory = useSelector((state) => state.bCategory);
+  const getApplicationId = location.pathname.split("/")[3];
+  const newApplication = useSelector((state) => state.application);
   const {
     isSuccess,
     isError,
     isLoading,
-    createBlogCategory,
-    blogCatName,
-    updatedBlogCategory,
-  } = newBlogCategory;
+    createdApplication,
+    updatedApplication,
+    applicationName,
+  } = newApplication;
   useEffect(() => {
-    if (getBlogCatId !== undefined) {
-      dispatch(getABlogCat(getBlogCatId));
+    if (getApplicationId !== undefined) {
+      dispatch(getAApplication(getApplicationId));
     } else {
       dispatch(resetState());
     }
-  }, [getBlogCatId]);
+  }, [getApplicationId]);
   useEffect(() => {
-    if (isSuccess && createBlogCategory) {
-      toast.success("Categoria do blog adicionada com sucesso!");
+    if (isSuccess && createdApplication) {
+      toast.success("Aplicação adicionada com sucesso!");
     }
-    if (isSuccess && updatedBlogCategory) {
-      toast.success("Categoria do blog atualizada com sucesso!");
-      navigate("/admin/blog-category-list");
+    if (isSuccess && updatedApplication) {
+      toast.success("Aplicação atualizada com sucesso!");
+      navigate("/admin/list-application");
     }
     if (isError) {
       toast.error("Algo deu errado!");
     }
-  }, [isSuccess, isError, isLoading]);
+  }, [isSuccess, isError, isLoading, createdApplication]);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      title: blogCatName || "",
+      title: applicationName || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      const data = { id: getBlogCatId, blogCatData: values };
-      if (getBlogCatId !== undefined) {
-        dispatch(updateABlogCat(data));
+      if (getApplicationId !== undefined) {
+        const data = { id: getApplicationId, applicationData: values };
+        dispatch(updateAApplication(data));
         dispatch(resetState());
       } else {
-        dispatch(createNewblogCat(values));
+        dispatch(createApplication(values));
         formik.resetForm();
         setTimeout(() => {
           dispatch(resetState());
@@ -69,19 +69,18 @@ const Addblogcat = () => {
   });
   return (
     <div>
-      <h3 className="mb-4  title">
-        {getBlogCatId !== undefined ? "Edit" : "Add"} Blog Category
+      <h3 className="mb-4 title">
+        {getApplicationId !== undefined ? "Edit" : "Add"} Aplicação
       </h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
-            name="title"
+            label="Digite aqui a aplicação"
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
-            label="Insira a categoria do blog"
-            id="blogcat"
+            id="application"
           />
           <div className="error">
             {formik.touched.title && formik.errors.title}
@@ -90,7 +89,7 @@ const Addblogcat = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            {getBlogCatId !== undefined ? "Edit" : "Add"} Blog Categoria
+            {getApplicationId !== undefined ? "Edit" : "Add"} Aplicação
           </button>
         </form>
       </div>
@@ -98,4 +97,4 @@ const Addblogcat = () => {
   );
 };
 
-export default Addblogcat;
+export default Addapplication;

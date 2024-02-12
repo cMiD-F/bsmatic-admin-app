@@ -5,7 +5,9 @@ import {
   AiOutlineShoppingCart,
   AiOutlineUser,
   AiOutlineBgColors,
+  AiOutlineLogout,
 } from "react-icons/ai";
+
 import { RiCouponLine } from "react-icons/ri";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,7 +20,6 @@ import { SiBrandfolder } from "react-icons/si";
 import { BiCategoryAlt } from "react-icons/bi";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
-
 const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -40,7 +41,9 @@ const MainLayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            if (key == "signout") {
+            if (key === "signout") {
+              localStorage.clear();
+              window.location.reload();
             } else {
               navigate(key);
             }
@@ -52,59 +55,59 @@ const MainLayout = () => {
               label: "Dashboard",
             },
             {
-              key: "usuarios",
+              key: "customers",
               icon: <AiOutlineUser className="fs-4" />,
               label: "Usuários",
             },
             {
-              key: "Catalogo",
+              key: "Catalog",
               icon: <AiOutlineShoppingCart className="fs-4" />,
               label: "Catalogo",
               children: [
                 {
-                  key: "produto",
+                  key: "product",
                   icon: <AiOutlineShoppingCart className="fs-4" />,
                   label: "Add Produto",
                 },
                 {
-                  key: "produto-lista",
+                  key: "list-product",
                   icon: <AiOutlineShoppingCart className="fs-4" />,
                   label: "Lista de produto",
                 },
                 {
-                  key: "marca",
+                  key: "brand",
                   icon: <SiBrandfolder className="fs-4" />,
                   label: "Marca",
                 },
                 {
-                  key: "lista-marca",
+                  key: "list-brand",
                   icon: <SiBrandfolder className="fs-4" />,
                   label: "Lista de marcas",
                 },
                 {
-                  key: "categoria",
+                  key: "category",
                   icon: <BiCategoryAlt className="fs-4" />,
                   label: "Categoria",
                 },
                 {
-                  key: "lista-categoria",
+                  key: "list-category",
                   icon: <BiCategoryAlt className="fs-4" />,
                   label: "Lista de categoria",
                 },
                 {
-                  key: "aplicacao",
+                  key: "application",
                   icon: <AiOutlineBgColors className="fs-4" />,
                   label: "Aplicação",
                 },
                 {
-                  key: "lista-aplicacao",
+                  key: "list-application",
                   icon: <AiOutlineBgColors className="fs-4" />,
                   label: "Lista de aplicações",
                 },
               ],
             },
             {
-              key: "pedido",
+              key: "orders",
               icon: <FaClipboardList className="fs-4" />,
               label: "Pedidos",
             },
@@ -114,12 +117,12 @@ const MainLayout = () => {
               label: "Marketing",
               children: [
                 {
-                  key: "cupom",
+                  key: "coupon",
                   icon: <ImBlog className="fs-4" />,
                   label: "Add Cupom",
                 },
                 {
-                  key: "lista-cupom",
+                  key: "coupon-list",
                   icon: <RiCouponLine className="fs-4" />,
                   label: "Lista de cupons",
                 },
@@ -136,26 +139,31 @@ const MainLayout = () => {
                   label: "Add Blog",
                 },
                 {
-                  key: "lista-blog",
+                  key: "blog-list",
                   icon: <FaBloggerB className="fs-4" />,
                   label: "Lista de Blog",
                 },
                 {
-                  key: "blog-categoria",
+                  key: "blog-category",
                   icon: <ImBlog className="fs-4" />,
                   label: "Add Blog Categoria",
                 },
                 {
-                  key: "lista-blog-categoria",
+                  key: "blog-category-list",
                   icon: <FaBloggerB className="fs-4" />,
                   label: "Lista de categoria de Blog",
                 },
               ],
             },
             {
-              key: "perguntas",
+              key: "enquiries",
               icon: <FaClipboardList className="fs-4" />,
               label: "Perguntas",
+            },
+            {
+              key: "signout",
+              icon: <AiOutlineLogout className="fs-4" />,
+              label: "Sair",
             },
           ]}
         />
@@ -176,13 +184,6 @@ const MainLayout = () => {
             }
           )}
           <div className="d-flex gap-4 align-items-center">
-            <div className="position-relative">
-              <IoIosNotifications className="fs-4" />
-              <span className="badge bg-warning rounded-circle p-1 position-absolute">
-                3
-              </span>
-            </div>
-
             <div className="d-flex gap-3 align-items-center dropdown">
               <div>
                 <img

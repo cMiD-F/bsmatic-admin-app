@@ -1,9 +1,9 @@
 import React from "react";
 
 const CustomInput = (props) => {
-    const {type, label, i_id, i_class, name, val, onChng, onBlr} = props;
+  const { type, label, i_id, i_class, name, val, onChng, onBlr } = props;
   return (
-    <div className="form-floating mb-3">
+    <div className="form-floating mt-3">
       <input
         type={type}
         className={`form-control ${i_class}`}
